@@ -1,0 +1,90 @@
+{% extends 'operator/adminbase.html' %}
+{% block content %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'assets/css/pages/form-element-select.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/pages/datatables-5.css' %}">
+{% endblock styles %}
+
+<div class="page-heading">
+    <h3>
+        {% block title %}
+        Manajemen Produk
+        {% endblock title %}
+    </h3>
+</div>
+
+<div class="page-content">
+    <section class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h4 class="card-title mb-0">Detail Produk "{{produk.nama_produk}}"</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="pilihanganda" role="tabpanel"
+                                aria-labelledby="pilihanganda-tab">
+                                <form class="form" method="POST" action="" autocomplete="off">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="nama_produk" class="mb-2">Judul</label>
+                                                <input disabled type="text" class="form-control" required name="nama_produk" value="{{produk.nama_produk}}">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="kategori" class="mb-2">Kategori</label>
+                                                <input disabled type="text" class="form-control" required name="kategori" value="{{produk.kategori}}">
+                                            </div>
+
+                                            <div class="form-group mb-4">
+                                                <label for="isi" class="mb-2">Deskripsi</label>
+                                                <textarea disabled name="deskripsi" id="" class="form-control" required rows="3"
+                                                    cols="100">{{produk.deskripsi|striptags}}</textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="harga" class="mb-2">Harga Produk</label>
+                                                <input disabled type="text" class="form-control" required name="harga" value="{{produk.harga}}">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="stok" class="mb-2">Stok Produk</label>
+                                                <input disabled type="text" class="form-control" required name="stok" value="{{produk.stok}}">
+                                            </div>
+
+
+                                            <div class="col-12 d-flex justify-content-end mt-4">
+                                                <a href="{% url 'produk' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+{% block scripts %}
+<script src="{% static 'assets/js/extensions/jquery.js' %}"></script>
+<script src="{% static 'assets/js/extensions/form-element-select.js' %}"></script>
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="{% static 'assets/js/extensions/datatables.js' %}"></script>
+<script src="{% static 'assets/js/extensions/datatables-5.js' %}"></script>
+<script>
+    CKEDITOR.replace('editor1');
+</script>
+{% endblock scripts %}
+
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% load static %}
+<div class="modal fade text-left modal-border" id="hapus-produk-{{produk.id}}" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hapus Produk : {{produk.nama_produk}}</h5>
+                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Apakah anda yakin ingin menghapus Produk ini?</p>
+                <div class="db-list">
+                    <ul style="list-style: none; padding-left: 0!important;">
+                        <li>
+                            <h5 class="modal-title">Nama Produk</h5>
+                        </li>
+                        <li class="mb-3">{{produk.nama_produk}}</li>
+                        <li>
+                            <h5 class="modal-title">Tanggal Dibuat</h5>
+                        </li>
+                        <li>
+                            {{produk.created}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form action="{% url 'produk-hapus' produk.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger ml-1">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block"><i class="fas fa-trash"></i>&nbsp;Hapus</span>
+                    </button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bx bx-x d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block"><i class="fas fa-times"></i>&nbsp;Tutup</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

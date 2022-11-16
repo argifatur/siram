@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{% endblock %} - SIRAM</title>
+
+<link rel="stylesheet" href="{% static 'assets/css/main/app.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/main/custom.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/main/app-dark.css' %}">
+<link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.svg' %}" type="image/x-icon">
+<link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png' %}" type="image/png">
+
+<link rel="stylesheet" href="{% static 'assets/css/shared/iconly.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/pages/fontawesome.css' %}">
+<link rel="stylesheet" href="{% static 'assets/sweetalert2/sweetalert2.min.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'assets/css/pages/simple-datatables.css' %}"> -->
+{% block styles %}{% endblock %}
+
+<body>
+  <!-- Start: App -->
+  <div id="app">
+    {% include "operator/partials/sidebar.html" %}
+
+    <!-- Start: Main -->
+    <div id="main" class='layout-navbar'>
+      {% include "operator/partials/header.html" %}
+
+      <div id="main-content" class="pt-0">
+        {% block content %}
+
+        {% endblock content %}
+
+        {% include "operator/partials/footer.html" %}
+      </div>
+
+    </div>
+    <!-- End: Main -->
+
+  </div>
+
+  <div class="modal fade text-left" id="logout" tabindex="-1" aria-labelledby="logout" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logout">Logout</h5>
+          <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-x">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Apakah anda yakin ingin keluar?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <a href="/logout" class="btn btn-danger ml-1">
+            <i class="bx bx-check d-block d-sm-none"></i>
+            <span class="d-none d-sm-block">Keluar</span>
+          </a>
+          <button type="button" class="btn" data-bs-dismiss="modal">
+            <i class="bx bx-x d-block d-sm-none"></i>
+            <span class="d-none d-sm-block">Tutup</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End: App -->
+  <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+  <script src="{% static 'assets/js/app.js' %}"></script>
+  
+  <script src="{% static 'assets/sweetalert2/sweetalert2.min.js' %}"></script>
+  <script>
+    $(function () {
+      var pageName = document.getElementById('_pageName');
+      if (pageName != null) {
+        pageName = pageName.innerHTML;
+      } else {
+        pageName = '';
+      }
+      if (pageName.length > 0) {
+        $("ul[data-link-name='" + pageName + "']").css("display","block");
+        $("li[data-link-name='" + pageName + "']").addClass('active');
+      }
+    });
+  </script>
+  <!-- <script src="{% static 'assets/js/pages/dashboard.js' %}"></script> -->
+  {% if messages %}
+  {% for message in messages %}
+    <script>
+        $(document).ready(function(){
+            // console.log($('#exampleInputFile').val())
+            function ops() {
+                Swal.fire(
+                    '{{message.tags}}!',
+                    '{{message}}!',
+                    '{{message.tags}}'
+                    )
+            }
+            ops();
+        });
+
+    </script>
+  {% endfor %}
+  {% endif %}
+  {% block scripts %}{% endblock %}
+
+</body>
+
+</html>

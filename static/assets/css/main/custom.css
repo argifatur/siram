@@ -1,0 +1,88 @@
+.sidebar-wrapper .sidebar-header {
+	font-size: 2rem;
+	font-weight: 700;
+	padding: 2rem 2rem 0rem;
+}
+
+.choices {
+	width: 100% !important;
+}
+
+.dropdown-menu {
+	min-width: 10rem !important;
+	top: 12px !important;
+}
+
+.ui-pnotify-icon {
+	margin-top: 3px !important;
+	margin-right: 10px !important;
+}
+
+.ui-pnotify-title {
+	color: #104300 !important;
+}
+
+.choices__placeholder {
+	opacity: unset !important;
+}
+
+.sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
+	    margin-bottom: 10px !important;
+}
+
+.small-box {
+	    border-radius: 10px;
+	    margin-bottom: 20px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-content: center;
+	    align-items: center;
+	    height: 50%;
+	    box-shadow: 0 1px 1pxrgba(0, 0, 0, 0.1);
+}
+
+.inner {
+	padding-left: 15px;
+}
+
+.small-box .icon {
+	    -webkit-transition: all .3s linear;
+	    -o-transition: all .3s linear;
+	    transition: all .3s linear;
+	    z-index: 0;
+	    font-size: 90px;
+	    color: rgba(0, 0, 0, 0.15);
+		padding-right: 15px;
+}
+
+.choices[data-type*=select-one] .choices__inner {
+	padding-bottom: 5px !important;
+	padding-top: 5px !important;
+	min-height: 0px !important;
+}
+
+.daterangepicker.dropdown-menu {
+	top: 31rem !important;
+}
+
+.page-heading {
+	margin: 0 0 1rem;
+}
+
+/* body.theme-dark .choices__input {
+	background-color: #1b1b29 !important;
+	color: #fff !important;
+}
+
+body.theme-dark .choices__list {
+	background-color: #1b1b29 !important;
+}
+
+body.theme-dark .choices__inner {
+	background-color: #1b1b29 !important;
+	border-color: #35354f !important;
+}
+
+body.theme-dark .choices__list, .choices__list--dropdown .choices__item--selectable.is-highlighted {
+	background-color: #1b1b29 !important;
+} */

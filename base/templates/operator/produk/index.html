@@ -1,0 +1,79 @@
+{% extends 'operator/adminbase.html' %}
+{% load static %}
+
+{% block styles %} 
+<ink rel="stylesheet" href="{% static 'assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/pages/datatables.css' %}">
+{% endblock %}
+{% block title %} Manajemen Produk {% endblock title %}
+{% block content %}
+<div class="page-heading">
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Manajemen Produk</h3>
+        </div>
+    </div>
+</div>
+<!-- {% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong> {{message}} </strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %} -->
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            <a href="{% url 'produk-tambah' %}" class="btn btn-success">Tambah</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th width="10">Judul</th>
+                        <th width="10">Kategori</th>
+                        <th width="200">Isi</th>
+                        <th>Status</th>
+                        <th>Author</th>
+                        <th>Published</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produk in produks %}
+                    <tr>
+                        <td>{{forloop.counter}}.</td>
+                        <td>{{produk.nama_produk}}</td>
+                        <td>{{produk.kategori}}</td>
+                        <td>{{produk.deskripsi|truncatewords:2|striptags}}</td>
+                        <td>
+                            <span class="badge bg-success">Rp. {{produk.harga}}</span>
+                        </td>
+                        <td>{{produk.author}}</td>
+                        <td>{{produk.created}}</td>
+                        <td>
+                            <a href="{% url 'produk-detail' produk.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-eye"></i>&nbsp;Detail</a>
+                            <a href="{% url 'produk-edit' produk.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>&nbsp;Edit</a>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus-produk-{{produk.id}}"><i class="fas fa-trash"></i>&nbsp;Hapus</button>
+                            {% include "operator/produk/hapus.html" %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+</div>
+{% block scripts %}
+
+<script src="{% static 'assets/extensions/jquery/jquery.min.js' %}"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+<script src="{% static 'assets/js/pages/datatables.js' %}"></script>
+
+{% endblock scripts %}
+{% endblock %}

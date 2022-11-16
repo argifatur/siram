@@ -1,0 +1,92 @@
+{% extends 'operator/adminbase.html' %}
+{% block content %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'assets/css/pages/form-element-select.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/pages/datatables-5.css' %}">
+{% endblock styles %}
+
+<div class="page-heading">
+    <h3>
+        {% block title %}
+        Manajemen Artikel
+        {% endblock title %}
+    </h3>
+</div>
+
+<div class="page-content">
+    <section class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h4 class="card-title mb-0">Detail Artikel "{{artikel.judul}}"</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="pilihanganda" role="tabpanel"
+                                aria-labelledby="pilihanganda-tab">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="judul" class="mb-2">Judul</label>
+                                                <input type="text" class="form-control" required name="judul" disabled value="{{artikel.judul}}">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="kategori" class="mb-2">Kategori</label>
+                                                <select name="kategori" id="" required class="form-control" disabled>
+                                                    <option value="">---Pilih Kategori---</option>
+                                                    {% for kategori in kategoris %}
+                                                    <option value="{{kategori.id}}" {% if artikel.kategori_artikel_id == kategori.id %} selected {% endif %}>{{kategori.nama_kategori}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group mb-4">
+                                                <label for="isi" class="mb-2">Isi</label>
+                                                <textarea name="isi" id="" class="form-control" required rows="10"
+                                                    cols="100" disabled>{{artikel.isi|striptags}}</textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="status" class="mb-2">Status</label>
+                                                <select name="status" id="" required class="form-control" disabled>
+                                                    <option value="Active" {% if artikel.status == 'Active' %} selected {% endif %}>Active</option>
+                                                    <option value="Inactive" {% if artikel.status == 'Inactive' %} selected {% endif %}>Inactive</option>
+                                                    <option value="Draft" {% if artikel.status == 'Draft' %} selected {% endif %}>Draft</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-12 d-flex justify-content-end mt-4">
+                                                <a href="{% url 'artikel' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+{% block scripts %}
+<script src="{% static 'assets/js/extensions/jquery.js' %}"></script>
+<script src="{% static 'assets/js/extensions/form-element-select.js' %}"></script>
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="{% static 'assets/js/extensions/datatables.js' %}"></script>
+<script src="{% static 'assets/js/extensions/datatables-5.js' %}"></script>
+<script>
+    CKEDITOR.replace('editor1');
+</script>
+{% endblock scripts %}
+
+
+{% endblock content %}
