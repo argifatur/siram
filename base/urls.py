@@ -12,7 +12,6 @@ urlpatterns = [
     path('operator/slider/tambah', views.sliderTambah, name="tambah-slider"),
     path('operator/slider/hapus/<int:pk>', views.sliderHapus, name="hapus-slider"),
     path('operator/slider/edit/<int:pk>', views.sliderEdit, name="edit-slider"),
-    path('operator/slider/detail/<int:pk>', views.sliderDetail, name="detail-slider"),
 
     # Artikel Route
     path('operator/artikel', views.artikelIndex, name="artikel"),
@@ -26,6 +25,12 @@ urlpatterns = [
     path('operator/kategori-artikel/tambah', views.kategoriArtikelTambah, name="tambah-kategori-artikel"),
     path('operator/kategori-artikel/hapus/<int:pk>', views.kategoriArtikelHapus, name="hapus-kategori-artikel"),
     path('operator/kategori-artikel/edit/<int:pk>', views.kategoriArtikelEdit, name="edit-kategori-artikel"),
+
+    # Kategori Produk Route
+    path('operator/kategori-produk', views.kategoriProdukIndex, name="kategori-produk"),
+    path('operator/kategori-produk/tambah', views.kategoriProdukTambah, name="tambah-kategori-produk"),
+    path('operator/kategori-produk/hapus/<int:pk>', views.kategoriProdukHapus, name="hapus-kategori-produk"),
+    path('operator/kategori-produk/edit/<int:pk>', views.kategoriProdukEdit, name="edit-kategori-produk"),
 
 
 

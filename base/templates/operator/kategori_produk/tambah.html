@@ -1,0 +1,36 @@
+<div class="modal fade text-left modal-border" id="tambah-kategori-produk" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Kategori Artikel</h5>
+                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            <form method="POST" action="{% url 'tambah-kategori-produk' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group mb-4">
+                                <label for="nama_kategori" class="mb-2">Nama Kategori Produk</label>
+                                <input type="text" id="nama_kategori" name="nama_kategori" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block"><i class="fas fa-times"></i>&nbsp;Tutup</span>
+                    </button>
+                    <button type="submit" class="btn btn-primary ml-1">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block"><i class="fas fa-plus"></i>&nbsp;Tambah</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

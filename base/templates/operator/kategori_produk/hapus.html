@@ -1,27 +1,33 @@
 {% load static %}
-<div class="modal fade text-left modal-border" id="hapus-slider-{{slider.id}}" tabindex="-1" role="dialog"
+<div class="modal fade text-left modal-border" id="hapus-kategori-produk-{{kategori.id}}" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Hapus Slider: {{slider.judul}}</h5>
+                <h5 class="modal-title">Hapus Kategori Produk: {{kategori.nama_kategori}}</h5>
                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
                 </button>
             </div>
             <div class="modal-body text-center">
-                <p>Apakah anda yakin ingin menghapus Slider ini?</p>
+                <p>Apakah anda yakin ingin menghapus kategori produk ini?</p>
                 <div class="db-list">
                     <ul style="list-style: none; padding-left: 0!important;">
                         <li>
-                            <h5 class="modal-title">Judul Slider</h5>
+                            <h5 class="modal-title">Nama kategori produk</h5>
                         </li>
-                        <li class="mb-3">{{slider.judul}}</li>
+                        <li class="mb-3">{{kategori.nama_kategori}}</li>
+                        <li>
+                            <h5 class="modal-title">Tanggal Publish</h5>
+                        </li>
+                        <li>
+                            {{kategori.created}}
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="modal-footer">
-                <form action="{% url 'hapus-slider' slider.id %}" method="POST">
+                <form action="{% url 'hapus-kategori-produk' kategori.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger ml-1">
                         <i class="bx bx-check d-block d-sm-none"></i>

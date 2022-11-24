@@ -83,9 +83,7 @@ def sliderTambah(request):
 @login_required(login_url='login')
 def sliderEdit(request,pk):
     slider = Slider.objects.get(id=pk)
-    form = forms.SliderForm(instance=slider)
     if request.method == 'POST':
-        form = forms.SliderForm(request.POST, instance=slider)
         slider.judul  = request.POST.get('judul')
         slider.isi  = request.POST.get('isi')
         slider.status  = request.POST.get('status')
@@ -94,7 +92,7 @@ def sliderEdit(request,pk):
         messages.success(request, "Sukses Mengubah Slider." )
         return redirect('slider')
 
-    context = {'form':form,'slider':slider}
+    context = {'slider':slider}
     return render(request, 'operator/slider/edit.html', context)
 
 
@@ -201,5 +199,48 @@ def kategoriArtikelEdit(request,pk):
 
     context = {'kategoriArtikel':kategoriArtikel}
     return render(request, 'operator/kategori_artikel/edit.html', context)
+
+
+# Kategori Produk Views
+@login_required(login_url='login')
+def kategoriProdukIndex(request):
+    kategoris = KategoriProduk.objects.all()
+    context = {'kategoris':kategoris}
+    return render(request,'operator/kategori_produk/index.html', context)
+
+@login_required(login_url='login')
+def kategoriProdukHapus(request,pk):
+    kategoriArtikel = KategoriProduk.objects.get(id=pk)
+    if request.method == 'POST':
+        kategoriArtikel.delete()
+        messages.success(request, "Sukses Menghapus Kategori Produk." )
+        return redirect('kategori-produk')
+    else:
+        messages.error(request, 'Terdapat Error Saat Hapus Kategori Produk. Pastikan Data Yang Ingin Dihapus Tidak Terkait Dengan Data Lain!', extra_tags="danger")
+    return render(request, 'operator/kategori_produk/hapus.html', {'obj':artikel})
+
+@login_required(login_url='login')
+def kategoriProdukTambah(request):
+    # form = forms.ArtikelForm()
+    if request.method == 'POST':
+        KategoriProduk.objects.create(
+            nama_kategori=request.POST.get('nama_kategori')
+        )
+        messages.success(request, "Sukses Menambah Kategori Produk." )
+        return redirect('kategori-produk')
+    context = {}
+    return render(request,'operator/kategori_produk/tambah.html', context)
+
+@login_required(login_url='login')
+def kategoriProdukEdit(request,pk):
+    kategoriProduk = KategoriProduk.objects.get(id=pk)
+    if request.method == 'POST':
+        kategoriProduk.nama_kategori  = request.POST.get('nama_kategori')
+        kategoriProduk.save()
+        messages.success(request, "Sukses Mengubah Kategori Produk." )
+        return redirect('kategori-produk')
+
+    context = {'kategoriProduk':kategoriProduk}
+    return render(request, 'operator/kategori_produk/edit.html', context)
 
 

@@ -2,16 +2,16 @@
 {% load static %}
 
 {% block styles %} 
-<link rel="stylesheet" href="{% static 'assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}">
+<ink rel="stylesheet" href="{% static 'assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/pages/datatables.css' %}">
 {% endblock %}
-{% block title %} Manajemen Slider {% endblock title %}
+{% block title %} Manajemen Kategori Produk {% endblock title %}
 {% block content %}
 <div class="page-heading">
 <div class="page-title">
     <div class="row">
         <div class="col-12 col-md-6 order-md-1 order-last">
-            <h3>Manajemen Slider</h3>
+            <h3>Manajemen Kategori Produk</h3>
         </div>
     </div>
 </div>
@@ -26,28 +26,29 @@
 <section class="section">
     <div class="card">
         <div class="card-header">
-            <a href="{% url 'tambah-slider' %}" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;Tambah</a>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambah-kategori-produk"><i class="fas fa-plus"></i>&nbsp;Tambah
+            </button>
+            {% include "operator/kategori_produk/tambah.html" %}
         </div>
         <div class="card-body">
             <table class="table table-striped" id="table1">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th width="10">Judul</th>
-                        <th>Gambar</th>
+                        <th>Nama Kategori</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for slider in sliders %}
+                    {% for kategori in kategoris %}
                     <tr>
                         <td>{{forloop.counter}}.</td>
-                        <td>{{slider.judul}}</td>
-                        <td>{{slider.gambar}}</td>
+                        <td>{{kategori.nama_kategori}}</td>
                         <td>
-                            <a href="{% url 'edit-slider' slider.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>&nbsp;Edit</a>
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus-slider-{{slider.id}}"><i class="fas fa-trash"></i>&nbsp;Hapus</button>
-                            {% include "operator/slider/hapus.html" %}
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit-kategori-produk-{{kategori.id}}"><i class="fas fa-edit"></i>&nbsp;Edit</button>
+                            {% include "operator/kategori_produk/edit.html" %}
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus-kategori-produk-{{kategori.id}}"><i class="fas fa-trash"></i>&nbsp;Hapus</button>
+                            {% include "operator/kategori_produk/hapus.html" %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -62,7 +63,7 @@
 
 <script src="{% static 'assets/extensions/jquery/jquery.min.js' %}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-<script src="{% static 'js/pages/datatables.js' %}"></script>
+<script src="{% static 'assets/js/pages/datatables.js' %}"></script>
 
 {% endblock scripts %}
 {% endblock %}

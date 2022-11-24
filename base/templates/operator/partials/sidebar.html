@@ -57,19 +57,19 @@
                 </li>
                 
                 <li class="sidebar-item {% if 'blog' in request.path  %} active {% endif %}">
-                    <a href="#" class='sidebar-link'>
+                    <a href="{% url 'slider' %}" class='sidebar-link'>
                         <i class="bi bi-window-fullscreen"></i>
                         <span>Slider</span>
                     </a>
                 </li>
                 
-                <li data-link-name="edituser" class="sidebar-item has-sub {% if 'kategori' in request.path or 'artikel' in request.path  %} active {% endif %} has-sub">
+                <li data-link-name="edituser" class="sidebar-item has-sub {% if 'kategori-artikel' in request.path or 'artikel' in request.path  %} active {% endif %} has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-book-half"></i>
                         <span>Artikel</span>
                     </a>
                     <ul class="submenu" style="display:
-                        {% if 'kategori' in request.path or 'artikel' in request.path %} block {% endif %};">
+                        {% if 'kategori-artikel' in request.path or 'artikel' in request.path %} block {% endif %};">
                         <li class="submenu-item {% if '/kategori-artikel' in request.path  %} active {% endif %}">
                             <a href="{% url 'kategori-artikel' %}">Kategori Artikel</a>
                         </li>
@@ -79,15 +79,15 @@
                     </ul>
                 </li>
 
-                <li data-link-name="edituser"
-                    class="sidebar-item has-sub">
+                <li data-link-name="edituser" class="sidebar-item {% if 'produk' in request.path or 'kategori-produk' in request.path  %} active {% endif %} has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-shop"></i>
                         <span>Produk</span>
                     </a>
-                    <ul class="submenu">
+                    <ul class="submenu" style="display:
+                        {% if 'kategori-produk' in request.path or 'produk' in request.path %} block {% endif %};">
                         <li class="submenu-item">
-                            <a href="">Kategori Produk</a>
+                            <a href="{% url 'kategori-produk' %}">Kategori Produk</a>
                         </li>
                         <li class="submenu-item">
                             <a href="">Produk</a>
