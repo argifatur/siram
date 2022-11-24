@@ -10,6 +10,8 @@ from django.http import HttpResponse
 from . import forms
 from datetime import datetime
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+import os
 
 # Create your views here.
 def home(request):
@@ -48,7 +50,7 @@ def logout_view(request):
 @login_required(login_url='login')
 def sliderIndex(request):
     sliders = Slider.objects.all()
-    context = {'sliders':sliders}
+    context = {'sliders':sliders,'media_url':settings.MEDIA_URL}
     return render(request,'operator/slider/index.html', context)
 
 @login_required(login_url='login')
@@ -65,12 +67,12 @@ def sliderHapus(request,pk):
 @login_required(login_url='login')
 def sliderTambah(request):
     if request.method == 'POST':
-        Slider.objects.create(
-            judul=request.POST.get('judul'),
-            gambar=request.POST.get('gambar'),
-        )
         if request.FILES.get('gambar'):
             upload = request.FILES['gambar']
+            Slider.objects.create(
+                judul=request.POST.get('judul'),
+                gambar=upload.name,
+            )
             gambar = upload.name
             fss = FileSystemStorage()
             file = fss.save(upload.name, upload)
@@ -85,14 +87,22 @@ def sliderEdit(request,pk):
     slider = Slider.objects.get(id=pk)
     if request.method == 'POST':
         slider.judul  = request.POST.get('judul')
-        slider.isi  = request.POST.get('isi')
-        slider.status  = request.POST.get('status')
-        slider.kategori_id  = request.POST.get('kategori')
         slider.save()
+        if request.FILES.get('gambar'):
+            if slider.gambar:
+                if os.path.isfile(slider.gambar.path):
+                    os.remove(slider.gambar.path)
+            upload = request.FILES['gambar']
+            slider.gambar = upload.name
+            slider.save()
+            fss = FileSystemStorage()
+            file = fss.save(upload.name, upload)
+            file_url = fss.url(file)
+            
         messages.success(request, "Sukses Mengubah Slider." )
         return redirect('slider')
 
-    context = {'slider':slider}
+    context = {'slider':slider,'media_url':settings.MEDIA_URL}
     return render(request, 'operator/slider/edit.html', context)
 
 

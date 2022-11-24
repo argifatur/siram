@@ -43,7 +43,7 @@
                     <tr>
                         <td>{{forloop.counter}}.</td>
                         <td>{{slider.judul}}</td>
-                        <td>{{slider.gambar}}</td>
+                        <td><img src="{{media_url}}{{slider.gambar}}" width="10%"></td>
                         <td>
                             <a href="{% url 'edit-slider' slider.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>&nbsp;Edit</a>
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus-slider-{{slider.id}}"><i class="fas fa-trash"></i>&nbsp;Hapus</button>
@@ -62,7 +62,7 @@
 
 <script src="{% static 'assets/extensions/jquery/jquery.min.js' %}"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
-<script src="{% static 'js/pages/datatables.js' %}"></script>
+<script src="{% static 'assets/js/pages/datatables.js' %}"></script>
 
 {% endblock scripts %}
 {% endblock %}

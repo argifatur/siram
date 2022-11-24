@@ -27,7 +27,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="pilihanganda" role="tabpanel"
                                 aria-labelledby="pilihanganda-tab">
-                                <form class="form" method="POST" action="" autocomplete="off">
+                                <form class="form" method="POST" action="" autocomplete="off" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="row">
                                         <div class="col-12">
@@ -38,14 +38,17 @@
 
                                             <div class="form-group">
                                                 <label for="gambar" class="mb-2">Gambar</label>
-                                                <input type="file" class="form-control" required name="gambar">
+                                                <input type="file" class="form-control" accept="image/*" onchange="loadFile(event)" name="gambar">
+                                                <img id="output"/ width="20%">
+                                                <p>Gambar Sebelumnya : <img src="{{media_url}}{{slider.gambar}}" width="20%"></p>
                                             </div>
+
                                             
 
                                             <div class="col-12 d-flex justify-content-end mt-4">
                                                 <a href="{% url 'slider' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>
-                                                <button type="submit" class="btn btn-primary me-1 mb-1"><i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block"><i class="fas fa-plus"></i>&nbsp;Tambah</span></button>
+                                                <button type="submit" class="btn btn-warning me-1 mb-1"><i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block"><i class="fas fa-edit"></i>&nbsp;Edit</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -68,6 +71,15 @@
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <script src="{% static 'assets/js/extensions/datatables.js' %}"></script>
 <script src="{% static 'assets/js/extensions/datatables-5.js' %}"></script>
+<script type="text/javascript">
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
 <script>
     CKEDITOR.replace('editor1');
 </script>
