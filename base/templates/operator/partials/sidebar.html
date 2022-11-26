@@ -86,11 +86,11 @@
                     </a>
                     <ul class="submenu" style="display:
                         {% if 'kategori-produk' in request.path or 'produk' in request.path %} block {% endif %};">
-                        <li class="submenu-item">
+                        <li class="submenu-item {% if 'kategori-produk' in request.path  %} active {% endif %}">
                             <a href="{% url 'kategori-produk' %}">Kategori Produk</a>
                         </li>
-                        <li class="submenu-item">
-                            <a href="">Produk</a>
+                        <li class="submenu-item {% if '/produk' in request.path  %} active {% endif %}">
+                            <a href="{% url 'produk' %}">Produk</a>
                         </li>
                     </ul>
                 </li>

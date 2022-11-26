@@ -57,6 +57,9 @@ def sliderIndex(request):
 def sliderHapus(request,pk):
     slider = Slider.objects.get(id=pk)
     if request.method == 'POST':
+        if slider.gambar:
+            if os.path.isfile(slider.gambar.path):
+                os.remove(slider.gambar.path)
         slider.delete()
         messages.success(request, "Sukses Menghapus Slider." )
         return redirect('slider')
@@ -77,6 +80,10 @@ def sliderTambah(request):
             fss = FileSystemStorage()
             file = fss.save(upload.name, upload)
             file_url = fss.url(file)
+        else:
+            messages.error(request, "Gambar Harus Diisi." )
+            return redirect('slider')
+
         messages.success(request, "Sukses Menambah Slider." )
         return redirect('slider')
     context = {}
@@ -152,7 +159,7 @@ def artikelEdit(request,pk):
         artikel.judul  = request.POST.get('judul')
         artikel.isi  = request.POST.get('isi')
         artikel.status  = request.POST.get('status')
-        artikel.kategori_id  = request.POST.get('kategori')
+        artikel.kategori_artikel_id  = request.POST.get('kategori')
         artikel.save()
         messages.success(request, "Sukses Mengubah Artikel." )
         return redirect('artikel')
@@ -254,3 +261,87 @@ def kategoriProdukEdit(request,pk):
     return render(request, 'operator/kategori_produk/edit.html', context)
 
 
+# Produk Views
+@login_required(login_url='login')
+def produkIndex(request):
+    produks = Produk.objects.all()
+    context = {'produks':produks}
+    return render(request,'operator/produk/index.html', context)
+
+@login_required(login_url='login')
+def produkHapus(request,pk):
+    produk = Produk.objects.get(id=pk)
+    if request.method == 'POST':
+        if produk.gambar:
+            if os.path.isfile(produk.gambar.path):
+                os.remove(produk.gambar.path)
+        produk.delete()
+        messages.success(request, "Sukses Menghapus Produk." )
+        return redirect('produk')
+    else:
+        messages.error(request, 'Terdapat Error Saat Hapus Produk. Pastikan Data Yang Ingin Dihapus Tidak Terkait Dengan Data Lain!', extra_tags="danger")
+    return render(request, 'operator/produk/hapus.html', {'obj':produk})
+
+@login_required(login_url='login')
+def produkTambah(request):
+    kategoris = KategoriProduk.objects.all()
+    if request.method == 'POST':
+        if request.FILES.get('gambar'):
+            upload = request.FILES['gambar']
+            gambar = upload.name
+            Produk.objects.create(
+                nama_produk=request.POST.get('nama_produk'),
+                deskripsi=request.POST.get('deskripsi'),
+                kategori_produk_id=request.POST.get('kategori'),
+                harga=request.POST.get('harga'),
+                gambar=gambar,
+                author=request.user,
+            )
+            fss = FileSystemStorage()
+            file = fss.save(upload.name, upload)
+            file_url = fss.url(file)
+        else:
+            Produk.objects.create(
+                nama_produk=request.POST.get('nama_produk'),
+                deskripsi=request.POST.get('deskripsi'),
+                kategori_produk_id=request.POST.get('kategori'),
+                harga=request.POST.get('harga'),
+                author=request.user,
+            )
+        messages.success(request, "Sukses Menambah Produk." )
+        return redirect('produk')
+    context = {'kategoris':kategoris}
+    return render(request,'operator/produk/tambah.html', context)
+
+@login_required(login_url='login')
+def produkEdit(request,pk):
+    produk = Produk.objects.get(id=pk)
+    kategoris = KategoriProduk.objects.all()
+    if request.method == 'POST':
+        produk.nama_produk  = request.POST.get('nama_produk')
+        produk.deskripsi  = request.POST.get('deskripsi')
+        produk.harga  = request.POST.get('harga')
+        produk.kategori_produk_id  = request.POST.get('kategori')
+        produk.save()
+        if request.FILES.get('gambar'):
+            if produk.gambar:
+                if os.path.isfile(produk.gambar.path):
+                    os.remove(produk.gambar.path)
+            upload = request.FILES['gambar']
+            produk.gambar = upload.name
+            produk.save()
+            fss = FileSystemStorage()
+            file = fss.save(upload.name, upload)
+            file_url = fss.url(file)
+        messages.success(request, "Sukses Mengubah Produk." )
+        return redirect('produk')
+
+    context = {'produk':produk,'kategoris':kategoris,'media_url':settings.MEDIA_URL}
+    return render(request, 'operator/produk/edit.html', context)
+
+@login_required(login_url='login')
+def produkDetail(request,pk):
+    artikel = Produk.objects.get(id=pk)
+    kategoris = KategoriProduk.objects.all()
+    context = {'artikel':artikel,'kategoris':kategoris}
+    return render(request, 'operator/produk/detail.html', context)

@@ -8,7 +8,7 @@ import datetime
 
 class Slider(models.Model):
     judul = models.CharField(max_length=255)
-    gambar = models.ImageField(upload_to='images_jawaban/',null=True)
+    gambar = models.ImageField(upload_to='images_slider/',null=True)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -57,17 +57,18 @@ class KategoriProduk(models.Model):
         return self.nama_kategori
 
 class Produk(models.Model):
-    judul               = models.CharField(max_length=255)
+    nama_produk         = models.CharField(max_length=255)
     deskripsi           = models.TextField()
     kategori_produk     = models.ForeignKey(KategoriProduk, on_delete=models.SET_NULL, null=True)
     author              = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     harga               = models.IntegerField(default=0) # Active Inactive
+    gambar              = models.ImageField(upload_to='images_produk/',null=True)
     created             = models.DateTimeField(auto_now_add=True)
     updated             = models.DateTimeField(auto_now=True)
     slug                = models.SlugField(blank=True, editable=False)
 
     def save(self, **kwargs):
-        self.slug = slugify(self.judul)
+        self.slug = slugify(self.nama_produk)
         super().save()
 
     def get_absolute_url(self):
@@ -75,4 +76,4 @@ class Produk(models.Model):
         return reverse('blog', kwargs = url_slug)
         
     def __str__(self):
-        return self.judul
+        return self.nama_produk

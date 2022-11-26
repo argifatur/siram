@@ -27,7 +27,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="pilihanganda" role="tabpanel"
                                 aria-labelledby="pilihanganda-tab">
-                                <form class="form" method="POST" action="" autocomplete="off">
+                                <form class="form" method="POST" action="" autocomplete="off" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <div class="row">
                                         <div class="col-12">
@@ -40,10 +40,9 @@
                                                 <label for="kategori" class="mb-2">Kategori</label>
                                                 <select name="kategori" id="" required class="form-control">
                                                     <option value="">---Pilih Kategori---</option>
-                                                    <option value="Elektronik" {% if produk.kategori == 'Elektronik' %} selected {% endif %}>Elektronik</option>
-                                                    <option value="Sembako" {% if produk.kategori == 'Sembako' %} selected {% endif %}>Sembako</option>
-                                                    <option value="Pakaian" {% if produk.kategori == 'Pakaian' %} selected {% endif %}>Pakaian</option>
-                                                    <option value="Digital" {% if produk.kategori == 'Digital' %} selected {% endif %}>Digital</option>
+                                                    {% for kategori in kategoris %}
+                                                    <option value="{{kategori.id}}" {% if kategori.id == produk.kategori_produk_id %} selected {% endif %}>{{kategori.nama_kategori}}</option>
+                                                    {% endfor %}
                                                 </select>
                                             </div>
 
@@ -59,8 +58,10 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label for="stok" class="mb-2">Stok Produk</label>
-                                                <input type="text" class="form-control" required name="stok" value="{{produk.stok}}">
+                                                <label for="gambar" class="mb-2">Gambar</label>
+                                                <input type="file" class="form-control" accept="image/*" onchange="loadFile(event)" name="gambar">
+                                                <img id="output"/ width="20%">
+                                                <p>Gambar Sebelumnya : <img src="{{media_url}}{{produk.gambar}}" width="20%"></p>
                                             </div>
 
 
@@ -90,6 +91,15 @@
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <script src="{% static 'assets/js/extensions/datatables.js' %}"></script>
 <script src="{% static 'assets/js/extensions/datatables-5.js' %}"></script>
+<script type="text/javascript">
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
 <script>
     CKEDITOR.replace('editor1');
 </script>

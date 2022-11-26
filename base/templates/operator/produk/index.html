@@ -1,5 +1,7 @@
 {% extends 'operator/adminbase.html' %}
 {% load static %}
+{% load humanize %}
+
 
 {% block styles %} 
 <ink rel="stylesheet" href="{% static 'assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}">
@@ -26,7 +28,7 @@
 <section class="section">
     <div class="card">
         <div class="card-header">
-            <a href="{% url 'produk-tambah' %}" class="btn btn-success">Tambah</a>
+            <a href="{% url 'tambah-produk' %}" class="btn btn-success">Tambah</a>
         </div>
         <div class="card-body">
             <table class="table table-striped" id="table1">
@@ -35,10 +37,9 @@
                         <th>No.</th>
                         <th width="10">Judul</th>
                         <th width="10">Kategori</th>
-                        <th width="200">Isi</th>
-                        <th>Status</th>
+                        <th width="200"></th>
+                        <th>Harga</th>
                         <th>Author</th>
-                        <th>Published</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,16 +48,15 @@
                     <tr>
                         <td>{{forloop.counter}}.</td>
                         <td>{{produk.nama_produk}}</td>
-                        <td>{{produk.kategori}}</td>
+                        <td>{{produk.kategori_produk.nama_kategori}}</td>
                         <td>{{produk.deskripsi|truncatewords:2|striptags}}</td>
                         <td>
-                            <span class="badge bg-success">Rp. {{produk.harga}}</span>
+                            <span class="badge bg-success">Rp. {{produk.harga|intcomma}}</span>
                         </td>
                         <td>{{produk.author}}</td>
-                        <td>{{produk.created}}</td>
                         <td>
-                            <a href="{% url 'produk-detail' produk.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-eye"></i>&nbsp;Detail</a>
-                            <a href="{% url 'produk-edit' produk.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>&nbsp;Edit</a>
+                            <a href="{% url 'detail-produk' produk.id %}" class="btn btn-sm btn-secondary"><i class="fas fa-eye"></i>&nbsp;Detail</a>
+                            <a href="{% url 'edit-produk' produk.id %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i>&nbsp;Edit</a>
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus-produk-{{produk.id}}"><i class="fas fa-trash"></i>&nbsp;Hapus</button>
                             {% include "operator/produk/hapus.html" %}
                         </td>

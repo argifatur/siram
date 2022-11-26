@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form action="{% url 'produk-hapus' produk.id %}" method="POST">
+                <form action="{% url 'hapus-produk' produk.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger ml-1">
                         <i class="bx bx-check d-block d-sm-none"></i>
