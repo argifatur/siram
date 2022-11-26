@@ -345,3 +345,28 @@ def produkDetail(request,pk):
     kategoris = KategoriProduk.objects.all()
     context = {'artikel':artikel,'kategoris':kategoris}
     return render(request, 'operator/produk/detail.html', context)
+
+
+# EDIT PROFIl
+@login_required(login_url='home')
+def profil(request):
+    user = request.user
+    form = forms.UserForm(instance=user)
+
+    if request.method == 'POST':
+        form = forms.UserForm(request.POST, instance=user)
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.username = request.POST.get('username')
+        if request.POST.get('password1'):
+            if request.POST.get('password1') == request.POST.get('password2'):
+                user.set_password(request.POST.get('password1'))
+            else:
+                 messages.error(request, "Password & Konfirmasi Password Harus Sama.", extra_tags="danger" )
+                 return redirect('profil')
+        user.save()
+        messages.success(request, "Sukses Mengubah Profil." )
+        return redirect('profil')
+
+    context = {'user':user,'form':form}
+    return render(request, 'operator/profil.html', context)

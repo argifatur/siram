@@ -44,6 +44,7 @@ urlpatterns = [
 
 
     path('operator/form', views.artikelTambah, name="form-statis"),
+    path('operator/profil', views.profil, name="profil"),
 ]
 
 if settings.DEBUG:
