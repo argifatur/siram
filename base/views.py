@@ -15,7 +15,7 @@ import os
 
 # Create your views here.
 def home(request):
-    return render(request, 'base/home.html')
+    return render(request, 'frontend/home.html')
 
 @login_required(login_url='login')
 def dashboard(request):

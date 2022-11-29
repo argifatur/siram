@@ -77,3 +77,12 @@ class Produk(models.Model):
         
     def __str__(self):
         return self.nama_produk
+
+
+class Setting(models.Model):
+    key = models.CharField(max_length=200)
+    value = models.CharField(max_length=200)
+    created       = models.DateTimeField(auto_now_add=True,null=True)
+
+    def __str__(self):
+        return self.key
