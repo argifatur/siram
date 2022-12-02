@@ -1,0 +1,87 @@
+{% extends 'operator/adminbase.html' %}
+{% block content %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'assets/css/pages/form-element-select.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/pages/datatables-5.css' %}">
+{% endblock styles %}
+
+<div class="page-heading">
+    <h3>
+        {% block title %}
+        Manajemen Setting
+        {% endblock title %}
+    </h3>
+</div>
+
+<div class="page-content">
+    <section class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+                    <h4 class="card-title mb-0">Setting</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="pilihanganda" role="tabpanel"
+                                aria-labelledby="pilihanganda-tab">
+                                <form class="form" method="POST" action="" autocomplete="off" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="{{setting.0.key}}" class="mb-2">{{setting.0.key}}</label>
+                                                <input type="text" class="form-control" required name="{{setting.0.key}}" value="{{setting.0.value}}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="{{setting.1.key}}" class="mb-2">{{setting.1.key}}</label>
+                                                <input type="text" class="form-control" required name="{{setting.1.key}}" value="{{setting.1.value}}">
+                                            </div>
+
+                                            <div class="col-12 d-flex justify-content-end mt-4">
+                                                <a href="{% url 'slider' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>
+                                                <button type="submit" class="btn btn-primary me-1 mb-1"><i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block"><i class="fas fa-plus"></i>&nbsp;Tambah</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+{% block scripts %}
+<script src="{% static 'assets/js/extensions/jquery.js' %}"></script>
+<script src="{% static 'assets/js/extensions/form-element-select.js' %}"></script>
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="{% static 'assets/js/extensions/datatables.js' %}"></script>
+<script src="{% static 'assets/js/extensions/datatables-5.js' %}"></script>
+<script type="text/javascript">
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
+<script>
+    CKEDITOR.replace('editor1');
+</script>
+
+
+{% endblock scripts %}
+
+
+{% endblock content %}

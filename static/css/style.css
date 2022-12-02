@@ -2347,9 +2347,11 @@ p {
       .navbar-area.sticky .navbar .navbar-nav .nav-item a::before {
         background: -webkit-linear-gradient(left, rgba(18, 18, 18, 0) 0%, #121212 100%);
         background: -o-linear-gradient(left, rgba(18, 18, 18, 0) 0%, #121212 100%);
-        background: linear-gradient(to right, rgba(18, 18, 18, 0) 0%, #121212 100%); }
+        /*background: linear-gradient(to right, rgba(18, 18, 18, 0) 0%, #121212 100%); }*/
+        background: linear-gradient(to right, rgba(18, 18, 18, 0) 0%, white 100%); }
     .navbar-area.sticky .navbar .navbar-nav .nav-item.active, .navbar-area.sticky .navbar .navbar-nav .nav-item:hover {
       color: #121212;
+      /*color: #121212;*/
       opacity: 1; }
     .navbar-area.sticky .navbar .navbar-btn li a.light {
       border-color: #0067f4;
@@ -2371,9 +2373,9 @@ p {
     content: '';
     width: 33%;
     height: 100%;
-    background: -webkit-linear-gradient(rgba(0, 103, 244, 0.3) 0%, rgba(43, 219, 220, 0.3) 100%);
+    /*background: -webkit-linear-gradient(rgba(0, 103, 244, 0.3) 0%, rgba(43, 219, 220, 0.3) 100%);
     background: -o-linear-gradient(rgba(0, 103, 244, 0.3) 0%, rgba(43, 219, 220, 0.3) 100%);
-    background: linear-gradient(rgba(0, 103, 244, 0.3) 0%, rgba(43, 219, 220, 0.3) 100%);
+    background: linear-gradient(rgba(0, 103, 244, 0.3) 0%, rgba(43, 219, 220, 0.3) 100%);*/
     top: 0;
     right: 15%;
     -webkit-transform: skewX(20deg);
@@ -2532,7 +2534,7 @@ p {
 ===========================*/
 /*===== features TWO =====*/
 .features-area {
-  background-color: #f4f6f7;
+  /*background-color: #f4f6f7;*/
   padding-top: 120px;
   padding-bottom: 130px; }
 
@@ -2996,6 +2998,7 @@ p {
   -moz-box-shadow: 0px 8px 16px 0px rgba(72, 127, 255, 0.1);
   box-shadow: 0px 8px 16px 0px rgba(72, 127, 255, 0.1); }
   .team-style-eleven .team-image img {
+    margin-bottom: 150px;
     width: 100%; }
   .team-style-eleven .team-content {
     position: absolute;
@@ -3022,9 +3025,9 @@ p {
       height: 100%;
       top: 0;
       left: 0;
-      background: -webkit-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
-      background: -o-linear-gradient(left, #0067f4 0%, #2bdbdc 100%);
-      background: linear-gradient(to right, #0067f4 0%, #2bdbdc 100%);
+      background: -webkit-linear-gradient(left, #A2BD51 0%, #7ADC2B 100%);
+      background: -o-linear-gradient(left, #A2BD51 0%, #7ADC2B 100%);
+      background: linear-gradient(to right, #A2BD51 0%, #7ADC2B 100%);
       z-index: -1;
       -webkit-transition: all 0.3s ease-out 0s;
       -moz-transition: all 0.3s ease-out 0s;

@@ -87,70 +87,6 @@
 
     <!--====== SLIDER PART ENDS ======-->
     
-    <!--====== FEATRES TWO PART START ======-->
-
-    <section id="services" class="features-area">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-10">
-                    <div class="section-title text-center pb-10">
-                        <h3 class="title">Our Services</h3>
-                        <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
-                    </div> <!-- row -->
-                </div>
-            </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="single-features mt-40">
-                        <div class="features-title-icon d-flex justify-content-between">
-                            <h4 class="features-title"><a href="#">Graphics Design</a></h4>
-                            <div class="features-icon">
-                                <i class="lni lni-brush"></i>
-                                <img class="shape" src="{% static 'images/f-shape-1.svg' %}" alt="Shape">
-                            </div>
-                        </div>
-                        <div class="features-content">
-                            <p class="text">Short description for the ones who look for something new. Short description for the ones who look for something new.</p>
-                            <a class="features-btn" href="#">LEARN MORE</a>
-                        </div>
-                    </div> <!-- single features -->
-                </div>
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="single-features mt-40">
-                        <div class="features-title-icon d-flex justify-content-between">
-                            <h4 class="features-title"><a href="#">Website Design</a></h4>
-                            <div class="features-icon">
-                                <i class="lni lni-layout"></i>
-                                <img class="shape" src="{% static 'images/f-shape-1.svg' %}" alt="Shape">
-                            </div>
-                        </div>
-                        <div class="features-content">
-                            <p class="text">Short description for the ones who look for something new. Short description for the ones who look for something new.</p>
-                            <a class="features-btn" href="#">LEARN MORE</a>
-                        </div>
-                    </div> <!-- single features -->
-                </div>
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="single-features mt-40">
-                        <div class="features-title-icon d-flex justify-content-between">
-                            <h4 class="features-title"><a href="#">Digital Marketing</a></h4>
-                            <div class="features-icon">
-                                <i class="lni lni-bolt"></i>
-                                <img class="shape" src="{% static 'images/f-shape-1.svg' %}" alt="Shape">
-                            </div>
-                        </div>
-                        <div class="features-content">
-                            <p class="text">Short description for the ones who look for something new. Short description for the ones who look for something new.</p>
-                            <a class="features-btn" href="#">LEARN MORE</a>
-                        </div>
-                    </div> <!-- single features -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== FEATRES TWO PART ENDS ======-->
-    
     <!--====== PORTFOLIO PART START ======-->
 
     <section id="portfolio" class="portfolio-area portfolio-four pb-100">
@@ -158,196 +94,30 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
                     <div class="section-title text-center pb-10">
-                        <h3 class="title">Featured Works</h3>
-                        <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                        <h3 class="title">Kategori Resep</h3>
+                        <p class="text">Beberapa Pilihan Kategori Resep Yang Tersedia ✨</p>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
             <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <div class="portfolio-menu text-center mt-50">
-                        <ul>
-                            <li data-filter="*" class="active">ALL WORK</li>
-                            <li data-filter=".branding-4">BRANDING</li>
-                            <li data-filter=".marketing-4">MARKETING</li>
-                            <li data-filter=".planning-4">PLANNING</li>
-                            <li data-filter=".research-4">RESEARCH</li>
-                        </ul>
-                    </div> <!-- portfolio menu -->
-                </div>
-                <div class="col-lg-9 col-md-9">
+                <div class="col-lg-12 col-md-12">
                     <div class="row no-gutters grid mt-50">
-                        <div class="col-lg-4 col-sm-6 branding-4 planning-4">
+                        {% for data in api_kategori_resep %}
+                        <div class="col-lg-4 col-sm-6 branding-4 planning-4 p-1">
                             <div class="single-portfolio">
                                 <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/1.png' %}" alt="">
+                                    <img src="/static/images/category/{{data.key}}.jpg" alt="" height="250" width="400">
                                     <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/1.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
+                                        <div class="portfolio-content text-center">
+                                            <div class="portfolio-icon text-center">
+                                                <a href="#">{{data.category}}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div> <!-- single portfolio -->
                         </div>
-                        <div class="col-lg-4 col-sm-6 marketing-4 research-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/2.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/2.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 branding-4 marketing-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/3.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/3.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 planning-4 research-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/4.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/4.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 marketing-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/5.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/5.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 planning-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/6.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/6.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 research-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/7.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/7.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 branding-4 planning-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/8.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/8.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 marketing-4">
-                            <div class="single-portfolio">
-                                <div class="portfolio-image">
-                                    <img src="{% static 'images/portfolio/9.png' %}" alt="">
-                                    <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                                        <div class="portfolio-content">
-                                            <div class="portfolio-icon">
-                                                <a class="image-popup" href="{% static 'images/portfolio/9.png' %}"><i class="lni lni-zoom-in"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                            <div class="portfolio-icon">
-                                                <a href="#"><i class="lni lni-link"></i></a>
-                                                <img src="{% static 'images/portfolio/shape.svg' %}" alt="shape" class="shape">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- single portfolio -->
-                        </div>
+                        {% endfor %}
                     </div> <!-- row -->
                 </div>
             </div> <!-- row -->
@@ -355,85 +125,215 @@
     </section>
 
     <!--====== PORTFOLIO PART ENDS ======-->
-    
-    <!--====== PRINICNG START ======-->
 
-    <section id="pricing" class="pricing-area ">
+    <!--====== TEAM START ======-->
+
+    <section id="team" class="team-area pb-130">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
-                    <div class="section-title text-center pb-25">
-                        <h3 class="title">Pricing Plans</h3>
-                        <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
+                    <div class="section-title text-center pb-30">
+                        <h3 class="title">Resep Terbaru</h3>
+                        <p class="text">Beberapa Resep Terbaru Yang Tersedia ✨</p>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="pricing-style mt-30">
-                        <div class="pricing-icon text-center">
-                            <img src="{% static 'images/basic.svg' %}" alt="">
+            <div class="row text-center justify-content-center">
+                {% for resep in api_resep %}
+                <div class="col-lg-4 col-sm-6">
+                    <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
+                        <div class="team-image">
+                            <img src="{{resep.thumb}}" alt="Team" height="100%">
                         </div>
-                        <div class="pricing-header text-center">
-                            <h5 class="sub-title">Basic</h5>
-                            <p class="month"><span class="price">$ 199</span>/month</p>
+                        <div class="team-content">
+                            <div class="team-social">
+                                <ul class="social">
+                                    <li><i class="lni lni-timer"></i> {{resep.times}}</li>
+                                    <li><i class="lni lni-dinner"></i> {{resep.serving}}</li>
+                                    <li><i class="lni lni-chef-hat"></i> {{resep.difficulty}}</li>
+                                </ul>
+                            </div>
+                            <h4 class="team-name"><a href="#">{{resep.title}}</a></h4>
+                            {# <span class="sub-title">Art Director</span> #}
                         </div>
-                        <div class="pricing-list">
-                            <ul>
-                                <li><i class="lni lni-check-mark-circle"></i> Carefully crafted components</li>
-                                <li><i class="lni lni-check-mark-circle"></i> Amazing page examples</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn rounded-buttons text-center">
-                            <a class="main-btn rounded-one" href="#">GET STARTED</a>
-                        </div>    
-                    </div> <!-- pricing style one -->
+                    </div> <!-- single team -->
                 </div>
-                
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="pricing-style mt-30">
-                        <div class="pricing-icon text-center">
-                            <img src="{% static 'images/pro.svg' %}" alt="">
-                        </div>
-                        <div class="pricing-header text-center">
-                            <h5 class="sub-title">Pro</h5>
-                            <p class="month"><span class="price">$ 399</span>/month</p>
-                        </div>
-                        <div class="pricing-list">
-                            <ul>
-                                <li><i class="lni lni-check-mark-circle"></i> Carefully crafted components</li>
-                                <li><i class="lni lni-check-mark-circle"></i> Amazing page examples</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn rounded-buttons text-center">
-                            <a class="main-btn rounded-one" href="#">GET STARTED</a>
-                        </div>
-                    </div> <!-- pricing style one -->
-                </div>
-                
-                <div class="col-lg-4 col-md-7 col-sm-9">
-                    <div class="pricing-style mt-30">
-                        <div class="pricing-icon text-center">
-                            <img src="{% static 'images/enterprise.svg' %}" alt="">
-                        </div>
-                        <div class="pricing-header text-center">
-                            <h5 class="sub-title">Enterprise</h5>
-                            <p class="month"><span class="price">$ 699</span>/month</p>
-                        </div>
-                        <div class="pricing-list">
-                            <ul>
-                                <li><i class="lni lni-check-mark-circle"></i> Carefully crafted components</li>
-                                <li><i class="lni lni-check-mark-circle"></i> Amazing page examples</li>
-                            </ul>
-                        </div>
-                        <div class="pricing-btn rounded-buttons text-center">
-                            <a class="main-btn rounded-one" href="#">GET STARTED</a>
-                        </div>
-                    </div> <!-- pricing style one -->
-                </div>
+                {% endfor %}
+                <a href="" class="btn btn-primary">Selengkapnya</a>
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
+
+    <!--====== TEAM  ENDS ======-->
+
+    
+    <!--====== PRINICNG START ======-->
+    <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-10">
+                    <div class="section-title text-center pb-25">
+                        <h3 class="title">Produk Terkait</h3>
+                        <p class="text">Geser Untuk Melihat Produk Lain</p>
+                    </div> <!-- section title -->
+                </div>
+            </div> <!-- row -->
+    <section class="slider">
+
+        <ul id="autoWidth" class="cs-hidden">
+
+          <li class="item-a">
+            <div class="box">
+                <div class="slide-img">
+                    <img alt="1" src="{% static 'images/author-1.jpg' %}">
+                    <div class="overlay">
+                        <a href="#" class="buy-btn">Buy Now</a> 
+                    </div>
+                </div>
+                <div class="type">
+                    <a href="#">Rabbed Cardigan</a>
+                    <span>Noe Arrival</span>
+                </div>
+                <a href="#" class="price">$23</a>
+
+            </div>
+
+        </div>      
+    </li>
+
+    <li class="item-b">
+        <div class="box">
+            <div class="slide-img">
+                <img alt="2" src="{% static 'images/author-1.jpg' %}">
+                <div class="overlay">
+                    <a href="#" class="buy-btn">Buy Now</a> 
+                </div>
+            </div>
+            <div class="type">
+                <a href="#">Rabbed Cardigan</a>
+                <span>Noe Arrival</span>
+            </div>
+            <a href="#" class="price">$20</a>
+
+        </div>
+
+    </div>      
+</li>
+
+<li class="item-c">
+    <div class="box">
+        <div class="slide-img">
+            <img alt="3" src="{% static 'images/author-1.jpg' %}">
+            <div class="overlay">
+                <a href="#" class="buy-btn">Buy Now</a> 
+            </div>
+        </div>
+        <div class="type">
+            <a href="#">Rabbed Cardigan</a>
+            <span>Noe Arrival</span>
+        </div>
+        <a href="#" class="price">$26</a>
+        
+    </div>
+    
+</div>      
+</li>
+
+<li class="item-d">
+    <div class="box">
+        <div class="slide-img">
+            <img alt="4" src="{% static 'images/author-1.jpg' %}">
+            <div class="overlay">
+                <a href="#" class="buy-btn">Buy Now</a> 
+            </div>
+        </div>
+        <div class="type">
+            <a href="#">Rabbed Cardigan</a>
+            <span>Noe Arrival</span>
+        </div>
+        <a href="#" class="price">$27</a>
+        
+    </div>
+    
+</div>      
+</li>
+
+<li class="item-e">
+    <div class="box">
+        <div class="slide-img">
+            <img alt="5" src="{% static 'images/author-1.jpg' %}">
+            <div class="overlay">
+                <a href="#" class="buy-btn">Buy Now</a> 
+            </div>
+        </div>
+        <div class="type">
+            <a href="#">Rabbed Cardigan</a>
+            <span>Noe Arrival</span>
+        </div>
+        <a href="#" class="price">$26</a>
+        
+    </div>
+    
+</div>      
+</li>
+
+<li class="item-f">
+    <div class="box">
+        <div class="slide-img">
+            <img alt="6" src="{% static 'images/author-1.jpg' %}">
+            <div class="overlay">
+                <a href="#" class="buy-btn">Buy Now</a> 
+            </div>
+        </div>
+        <div class="type">
+            <a href="#">Rabbed Cardigan</a>
+            <span>Noe Arrival</span>
+        </div>
+        <a href="#" class="price">$30</a>
+        
+    </div>
+    
+</div>      
+</li>
+
+<li class="item-g">
+    <div class="box">
+        <div class="slide-img">
+            <img alt="7" src="{% static 'images/author-1.jpg' %}">
+            <div class="overlay">
+                <a href="#" class="buy-btn">Buy Now</a> 
+            </div>
+        </div>
+        <div class="type">
+            <a href="#">Rabbed Cardigan</a>
+            <span>Noe Arrival</span>
+        </div>
+        <a href="#" class="price">$33</a>
+        
+    </div>
+    
+</div>      
+</li>
+
+<li class="item-h">
+    <div class="box">
+        <div class="slide-img">
+            <img alt="8" src="{% static 'images/author-1.jpg' %}">
+            <div class="overlay">
+                <a href="#" class="buy-btn">Buy Now</a> 
+            </div>
+        </div>
+        <div class="type">
+            <a href="#">Rabbed Cardigan</a>
+            <span>Noe Arrival</span>
+        </div>
+        <a href="#" class="price">$43</a>
+        
+    </div>
+    
+</div>      
+</li>
+
+</ul>
+</section>
 
     <!--====== PRINICNG ENDS ======-->
     
@@ -627,81 +527,6 @@
 
     <!--====== TESTIMONIAL PART ENDS ======-->
     
-    <!--====== TEAM START ======-->
-
-    <section id="team" class="team-area pt-120 pb-130">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-10">
-                    <div class="section-title text-center pb-30">
-                        <h3 class="title">Meet The Team</h3>
-                        <p class="text">Stop wasting time and money designing and managing a website that doesn’t get results. Happiness guaranteed!</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
-                        <div class="team-image">
-                            <img src="{% static 'images/team-1.jpg' %}" alt="Team">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-social">
-                                <ul class="social">
-                                    <li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                            <h4 class="team-name"><a href="#">Jeffery Riley</a></h4>
-                            <span class="sub-title">Art Director</span>
-                        </div>
-                    </div> <!-- single team -->
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
-                        <div class="team-image">
-                            <img src="{% static 'images/team-2.jpg' %}" alt="Team">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-social">
-                                <ul class="social">
-                                    <li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                            <h4 class="team-name"><a href="#">Riley Beata</a></h4>
-                            <span class="sub-title">Web Developer</span>
-                        </div>
-                    </div> <!-- single team -->
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
-                        <div class="team-image">
-                            <img src="{% static 'images/team-3.jpg' %}" alt="Team">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-social">
-                                <ul class="social">
-                                    <li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
-                                    <li><a href="#"><i class="lni lni-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                            <h4 class="team-name"><a href="#">Mark A. Parker</a></h4>
-                            <span class="sub-title">UX Designer</span>
-                        </div>
-                    </div> <!-- single team -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== TEAM  ENDS ======-->
     
     <!--====== CONTACT PART START ======-->
 

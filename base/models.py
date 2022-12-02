@@ -19,6 +19,18 @@ class Slider(models.Model):
     def __str__(self):
         return self.judul
 
+class KategoriResep(models.Model):
+    judul = models.CharField(max_length=255)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    # class Meta:
+    #     ordering = ['-updated', '-created']
+
+    def __str__(self):
+        return self.judul
+
 
 class KategoriArtikel(models.Model):
     nama_kategori = models.CharField(max_length=200)

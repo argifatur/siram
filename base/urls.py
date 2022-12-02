@@ -43,6 +43,7 @@ urlpatterns = [
     path('operator/produk/detail/<int:pk>', views.produkDetail, name="detail-produk"),
 
 
+    path('operator/setting', views.setting, name="setting"),
     path('operator/form', views.artikelTambah, name="form-statis"),
     path('operator/profil', views.profil, name="profil"),
 ]

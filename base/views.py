@@ -6,16 +6,32 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render,redirect,reverse
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 from .models import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from . import forms
 from datetime import datetime
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import os
+import requests
 
+
+url_api = 'https://masak-apa-tomorisakura.vercel.app/api/'
 # Create your views here.
 def home(request):
-    return render(request, 'frontend/home.html')
+    # Kategori Resep
+    url_kategori_resep = f'{url_api}/category/recipes/'
+    kategori_reseps = requests.get(url_kategori_resep)
+    data_kategori_resep = kategori_reseps.json()
+    api_kategori_resep = data_kategori_resep['results']
+
+    # Resep
+    url_new_resep = f'{url_api}/recipes-length/?limit=9'
+    kategori_reseps = requests.get(url_new_resep)
+    data_resep = kategori_reseps.json()
+    api_resep = data_resep['results']
+
+    context = {'api_kategori_resep':api_kategori_resep,'api_resep':api_resep}
+    return render(request, 'frontend/home.html', context)
 
 @login_required(login_url='login')
 def dashboard(request):
@@ -370,3 +386,12 @@ def profil(request):
 
     context = {'user':user,'form':form}
     return render(request, 'operator/profil.html', context)
+
+
+
+# SETTINGS
+@login_required(login_url='login')
+def setting(request):
+    setting = Setting.objects.all()
+    context = {'setting':setting}
+    return render(request,'operator/setting/index.html', context)
