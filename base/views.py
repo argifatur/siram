@@ -18,6 +18,7 @@ import requests
 url_api = 'https://masak-apa-tomorisakura.vercel.app/api/'
 # Create your views here.
 def home(request):
+    sliders = Slider.objects.all()
     # Kategori Resep
     url_kategori_resep = f'{url_api}/category/recipes/'
     kategori_reseps = requests.get(url_kategori_resep)
@@ -30,8 +31,30 @@ def home(request):
     data_resep = kategori_reseps.json()
     api_resep = data_resep['results']
 
-    context = {'api_kategori_resep':api_kategori_resep,'api_resep':api_resep}
+    context = {'api_kategori_resep':api_kategori_resep,'api_resep':api_resep,'sliders':sliders,'media_url':settings.MEDIA_URL}
     return render(request, 'frontend/home.html', context)
+
+
+def resepByKategori(request, key):
+    nama_kategori = key.replace('-',' ')
+    # Resep
+    url_resep_by_kategori = f'{url_api}/category/recipes/{key}'
+    reseps = requests.get(url_resep_by_kategori)
+    data_resep = reseps.json()
+    api_resep = data_resep['results']
+
+    context = {'api_resep':api_resep,'media_url':settings.MEDIA_URL,'nama_kategori':nama_kategori}
+    return render(request, 'frontend/resep_by_kategori.html', context)
+
+def detailResep(request, key):
+    # Resep
+    url_resep_by_kategori = f'{url_api}/recipe/{key}'
+    reseps = requests.get(url_resep_by_kategori)
+    data_resep = reseps.json()
+    api_resep = data_resep['results']
+
+    context = {'api_resep':api_resep,'media_url':settings.MEDIA_URL,'nama_kategori':nama_kategori}
+    return render(request, 'frontend/detail_resep.html', context)
 
 @login_required(login_url='login')
 def dashboard(request):

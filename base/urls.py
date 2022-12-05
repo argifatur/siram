@@ -9,6 +9,8 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'),
     path('operator/dashboard', views.dashboard, name="dashboard"),
 
+    # ADMIN ROUTE 
+
     # Slider Route
     path('operator/slider', views.sliderIndex, name="slider"),
     path('operator/slider/tambah', views.sliderTambah, name="tambah-slider"),
@@ -46,6 +48,12 @@ urlpatterns = [
     path('operator/setting', views.setting, name="setting"),
     path('operator/form', views.artikelTambah, name="form-statis"),
     path('operator/profil', views.profil, name="profil"),
+
+
+    # USER ROUTE
+    path('resep-masakan/<str:key>', views.resepByKategori, name="resep-by-kategori"),
+    path('resep-masakan/detail-resep/<str:key>', views.detailResep, name="detail-resep"),
+
 ]
 
 if settings.DEBUG:
