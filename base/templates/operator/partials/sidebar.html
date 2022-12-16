@@ -7,7 +7,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-center align-items-center">
                 <div class=" d-flex flex-column align-items-center logo">
-                    <div class="fw-bold mt-2 ms-3" style="font-size: 1.5rem;">ADMIN SIRAM</div>
+                    <div class="fw-bold mt-2 ms-3" style="font-size: 1.5rem;">{% if request.user.is_superuser %} ADMIN {% else %} USER {% endif %} SIRAM</div>
                     <span style="font-size: 10px;">Sistem Informasi Resep Aneka Makanan</span>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2 d-none">
@@ -55,7 +55,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
+               {% if request.user.is_superuser %} 
                 <li class="sidebar-item {% if 'slider' in request.path  %} active {% endif %}">
                     <a href="{% url 'slider' %}" class='sidebar-link'>
                         <i class="bi bi-window-fullscreen"></i>
@@ -101,8 +101,24 @@
                         <span>Setting Website</span>
                     </a>
                 </li>
-               
 
+                <li class="sidebar-item">
+                    <a href="{% url 'setting' %}" class='sidebar-link'>
+                        <i class="bi bi-gear-fill"></i>
+                        <span>Backup ke DB</span>
+                    </a>
+                </li>
+               
+                {% else %}
+
+                <li class="sidebar-item">
+                    <a href="{% url 'setting' %}" class='sidebar-link'>
+                        <i class="bi bi-egg-fried"></i>
+                        <span>Manajemen Resep</span>
+                    </a>
+                </li>
+
+                {% endif %}
 
             </ul>
         </div>

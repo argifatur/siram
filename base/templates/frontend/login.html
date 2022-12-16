@@ -1,0 +1,53 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %} 
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/frontend/img/bg-img/breadcumb4.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Login</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+
+    <!-- ##### Contact Information Area Start ##### -->
+    <div class="contact-information-area section-padding-80">
+        <div class="container">
+            <div class="row text-center justify-content-center">
+                <div class="col-12 col-lg-4">
+                    <div class="newsletter-form bg-img bg-overlay" style="background-image: url(/static/frontend/img/bg-img/bg1.jpg);">
+                        <br>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                          {{message}}
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="text" name="username" placeholder="Username">
+                            <input type="password" name="password" placeholder="Password">
+                            <button type="submit" class="btn delicious-btn w-100">Login</button>
+                        </form>
+                        <br>
+
+                        <p>Belum punya akun ? <a href="{% url 'register' %}" class="text-white">Register disini</a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Contact Information Area End ##### -->
+
+{% endblock %}

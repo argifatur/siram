@@ -1,0 +1,66 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %} 
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/frontend/img/bg-img/breadcumb4.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Register Akun</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Contact Form Area Start ##### -->
+    <div class="contact-area section-padding-0-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Isi Form Dibawah Untuk Melakukan Register</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="contact-form-area">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <input type="text" class="form-control" id="name" name="first_name" placeholder="First Name" required>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="text" class="form-control" id="name" name="last_name" placeholder="Last Name" required>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="email" class="form-control" id="email" name="email" required placeholder="E-mail">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="password" class="form-control" id="{{form.password1.name}}" name="{{form.password1.name}}" placeholder="Password" required>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <input type="password" class="form-control" id="{{form.password2.name}}" name="{{form.password2.name}}" placeholder="Password" required>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button class="btn delicious-btn mt-30" type="submit">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Contact Form Area End ##### -->
+
+{% endblock %}

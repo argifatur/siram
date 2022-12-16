@@ -1,0 +1,84 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %} 
+  
+     <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/frontend/img/bg-img/breadcumb4.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Resep</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+
+
+    <!-- ##### Best Receipe Area Start ##### -->
+    <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            {% for resep in api_resep %}
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <a href="{% url 'detail-resep' resep.key %}">
+                        <img src="{{resep.thumb}}" alt="">
+                        <div class="receipe-content">
+                            <a href="{% url 'detail-resep' resep.key %}">
+                                <h5>{{resep.title}}</h5>
+                            </a>
+                            <div class="ratings">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i> {{resep.times}}
+                                <i class="fa fa-cutlery" aria-hidden="true"></i> {{resep.serving}}
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i> {{resep.difficulty}}
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+
+
+    <!-- ##### Follow Us Instagram Area Start ##### -->
+    <div class="follow-us-instagram">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Kategori Resep</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Instagram Feeds -->
+        <div class="insta-feeds d-flex flex-wrap">
+            <!-- Single Insta Feeds -->
+            {% for kategori in api_kategori_resep %}
+            <div class="single-insta-feeds">
+                <img src="/static/images/category/{{kategori.key}}.jpg" alt="" style="height: 150px; object-fit: cover;">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="{% url 'detail-kategori' kategori.key %}">{{kategori.category}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- ##### Follow Us Instagram Area End ##### -->
+
+
+{% endblock %}

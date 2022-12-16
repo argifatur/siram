@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Delicious - Food Blog Template | Home</title>
+    <title>SIRAM - Sistem Informasi Resep Aneka Makanan</title>
 
     <link rel="icon" href="img/core-img/favicon.ico">
     <link rel="stylesheet" href="{% static 'frontend/style.css' %}">
-
+    <link rel="stylesheet" href="{% static 'assets/sweetalert2/sweetalert2.min.css' %}">
 
 </head>
 
@@ -29,8 +29,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#" method="post">
-                        <input type="search" name="search" placeholder="Type any keywords...">
+                    <form action="{% url 'home' %}" method="GET">
+                        <input type="search" name="q" placeholder="Cari Resep...">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
@@ -53,6 +53,31 @@
     <script src="{% static 'frontend/js/plugins/plugins.js' %}"></script>
     <!-- Active js -->
     <script src="{% static 'frontend/js/active.js' %}"></script>
+
+<script src="{% static 'assets/sweetalert2/sweetalert2.min.js' %}"></script>
+  {% if messages %}
+  {% for message in messages %}
+    <script>
+        $(document).ready(function(){
+            // console.log($('#exampleInputFile').val())
+            function ops() {
+                Swal.fire(
+                    {% if message.tags == 'success' %}
+                    'Berhasil!',
+                    {% else %}
+                    'Gagal!',
+                    {% endif %}
+                    '{{message}}!',
+                    '{{message.tags}}'
+                    )
+            }
+            ops();
+        });
+
+    </script>
+  {% endfor %}
+  {% endif %}
+
     <script type="text/javascript">
     $(document).ready(function() {
     $('#autoWidth').lightSlider({

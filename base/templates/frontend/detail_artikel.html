@@ -1,0 +1,53 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %} 
+  
+   <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{media_url}}{{artikel.thumbnail}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>{{artikel.judul}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <div class="receipe-post-area section-padding-80">
+
+        <!-- Receipe Content Area -->
+        <div class="receipe-content-area">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="receipe-headline my-5">
+                            <img src="{{media_url}}{{artikel.thumbnail}}">
+                            <span>{{artikel.published}}</span>
+                            <h2>{{artikel.judul}}</h2>
+                            <div class="receipe-duration">
+                                <h6>Kategori: {{artikel.kategori_artikel}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <!-- Single Preparation Step -->
+                        <div class="single-preparation-step d-flex">
+                            <p>{{artikel.isi|safe}} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+{% endblock %}

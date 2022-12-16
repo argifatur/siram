@@ -35,7 +35,7 @@
                         <th>No.</th>
                         <th width="10">Judul</th>
                         <th width="10">Kategori</th>
-                        <th width="200">Isi</th>
+                        <th width="200">Thumbnail</th>
                         <th>Status</th>
                         <th>Author</th>
                         <th>Published</th>
@@ -48,7 +48,7 @@
                         <td>{{forloop.counter}}.</td>
                         <td>{{artikel.judul}}</td>
                         <td>{{artikel.kategori}}</td>
-                        <td>{{artikel.isi|truncatewords:2|striptags}}</td>
+                        <td><img src="{{media_url}}{{artikel.thumbnail}}" width="20%"></td>
                         <td>
                             <span class="badge bg-{% if artikel.status == 'Active' %}success{% else %}danger{% endif %}">{{artikel.status}}</span>
                         </td>

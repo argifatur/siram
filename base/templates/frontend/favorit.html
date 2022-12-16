@@ -1,0 +1,56 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %} 
+
+ <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/frontend/img/bg-img/breadcumb4.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Resep Favorit</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+<!-- ##### Best Receipe Area Start ##### -->
+    <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <div class="section-heading">
+                        <h3>Daftar Resep Favorit Kamu</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            {% for resep in resep_favorit %}
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <a href="{% url 'detail-resep' resep.key_resep %}">
+                        <img src="{{resep.thumb_resep}}" alt="">
+                        <div class="receipe-content">
+                            <a href="{% url 'detail-resep' resep.key_resep %}">
+                                <h5>{{resep.title_resep}}</h5>
+                            </a>
+                            <div class="ratings">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i> {{resep.times_resep}}
+                                <i class="fa fa-cutlery" aria-hidden="true"></i> {{resep.serving_resep}}
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i> {{resep.difficulty_resep}}
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+
+{% endblock content %}

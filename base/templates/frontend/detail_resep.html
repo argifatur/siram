@@ -3,46 +3,95 @@
 {% load static %}    
 {% block content %} 
   
-   
-
-    <!--====== TEAM START ======-->
-
-
-    <section id="team" class="team-area pb-30 mt-110">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-10">
-                    <div class="section-title text-center pb-30">
-                        <h3 class="title">{{nama_kategori|title}}</h3>
-                        <p class="text">Beberapa {{nama_kategori|title}} Yang Tersedia ✨</p>
-                    </div> <!-- section title -->
+   <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{resep.thumb}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>{{resep.title}}</h2>
+                    </div>
                 </div>
-            </div> <!-- row -->
-            <div class="row text-center justify-content-center">
-                {% for resep in api_resep %}
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
-                        <div class="team-image">
-                            <img src="{{resep.thumb}}" alt="Team" height="100%">
-                        </div>
-                        <div class="team-content">
-                            <div class="team-social">
-                                <ul class="social">
-                                    <li><i class="lni lni-timer"></i> {{resep.times}}</li>
-                                    <li><i class="lni lni-dinner"></i> {{resep.serving}}</li>
-                                    <li><i class="lni lni-chef-hat"></i> {{resep.difficulty}}</li>
-                                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <div class="receipe-post-area section-padding-80">
+
+        <!-- Receipe Content Area -->
+        <div class="receipe-content-area">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="receipe-headline my-5">
+                            <img src="{{resep.thumb}}">
+                            <span>{{resep.author.datePublished}}</span>
+                            <h2>{{resep.title}}</h2>
+                            <div class="receipe-duration">
+                                <h6>Tingkat: {{resep.difficulty}}</h6>
+                                <h6>Durasi: {{resep.times}}</h6>
+                                <h6>Porsi: {{resep.servings}}</h6>
                             </div>
-                            <h4 class="team-name"><a href="#">{{resep.title}}</a></h4>
-                            {# <span class="sub-title">Art Director</span> #}
                         </div>
-                    </div> <!-- single team -->
-                </div>
-                {% endfor %}
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
+                    </div>
 
-    <!--====== TEAM  ENDS ======-->
+                    {% if request.user.is_authenticated %}
+                    {% if bookmark == False %}
+                    <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="key_bookmarks" value="{{key}}">
+                    <div class="col-12 col-md-4">
+                        <div class="receipe-ratings text-right my-5">
+                            <button class="btn delicious-btn" type="submit"><i class="fa fa-heart-o"></i> &nbsp;Tambah Favorit</button>
+                        </div>
+                    </div>
+                    </form>
+                    {% else %}
+                    <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="key_unbookmarks" value="{{key}}">
+                    <div class="col-12 col-md-4">
+                        <div class="receipe-ratings text-right my-5">
+                            <button class="btn delicious-btn btn-3" type="submit"><i class="fa fa-window-close"></i> &nbsp;Hapus Dari Favorit</button>
+                        </div>
+                    </div>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <!-- Single Preparation Step -->
+                        {% for cara in resep.step %}
+                        <div class="single-preparation-step d-flex">
+                            <h4>{{forloop.counter}}.</h4>
+                            <p>{{cara}} </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div class="col-12 col-lg-4">
+                        <div class="ingredients">
+                            <h4>Bahan - Bahan</h4>
+
+                            <!-- Custom Checkbox -->
+                            {% for bahan in resep.ingredient %}
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
+                                <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{bahan}}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
 
 {% endblock %}

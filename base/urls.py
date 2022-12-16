@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home, name="home"),
     path('login/', views.loginPage, name="login"),
+    path('register/', views.registerPage, name="register"),
     path('logout', views.logout_view, name='logout'),
     path('operator/dashboard', views.dashboard, name="dashboard"),
 
@@ -51,8 +52,12 @@ urlpatterns = [
 
 
     # USER ROUTE
+    path('resep-masakan/', views.resepAll, name="resep-all"),
     path('resep-masakan/<str:key>', views.resepByKategori, name="resep-by-kategori"),
     path('resep-masakan/detail-resep/<str:key>', views.detailResep, name="detail-resep"),
+    path('resep-favorit/', views.resepFavorit, name="resep-favorit"),
+    path('resep-masakan/kategori/<str:key>', views.detailKategori, name="detail-kategori"),
+    path('artikel/detail-artikel/<str:slug>', views.detailArtikel, name="detail-artikel"),
 
 ]
 

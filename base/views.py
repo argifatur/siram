@@ -19,11 +19,21 @@ url_api = 'https://masak-apa-tomorisakura.vercel.app/api/'
 # Create your views here.
 def home(request):
     sliders = Slider.objects.all()
+    artikels = Artikel.objects.all().order_by('-id')[:9]
     # Kategori Resep
     url_kategori_resep = f'{url_api}/category/recipes/'
     kategori_reseps = requests.get(url_kategori_resep)
     data_kategori_resep = kategori_reseps.json()
     api_kategori_resep = data_kategori_resep['results']
+
+    for kategori in api_kategori_resep:
+        if KategoriResep.objects.filter(key=kategori['key']).exists() == False:
+            KategoriResep.objects.create(
+                category=kategori['category'],
+                key = kategori['key'],
+            )
+        else:
+            KategoriResep.objects.filter(key=kategori['key']).update(category=kategori['category'],key=kategori['key'])
 
     # Resep
     url_new_resep = f'{url_api}/recipes-length/?limit=9'
@@ -31,7 +41,17 @@ def home(request):
     data_resep = kategori_reseps.json()
     api_resep = data_resep['results']
 
-    context = {'api_kategori_resep':api_kategori_resep,'api_resep':api_resep,'sliders':sliders,'media_url':settings.MEDIA_URL}
+    q = request.GET.get('q')
+    if request.GET.get('q'):
+        # Cari dari api
+        url_cari = f'{url_api}/search/?q={q}'
+        cari = requests.get(url_cari)
+        data = cari.json()
+        resep_cari_api = data['results']
+        cari_resep_siram = Resep.objects.filter(title__icontains=request.GET.get('q'),is_from_api=0)[:9]
+        context = {'api_kategori_resep':api_kategori_resep,'api_resep':api_resep,'sliders':sliders,'media_url':settings.MEDIA_URL,'q':q,'resep_cari_api':resep_cari_api,'cari_resep_siram':cari_resep_siram,'artikels':artikels}
+    else:
+        context = {'api_kategori_resep':api_kategori_resep,'api_resep':api_resep,'sliders':sliders,'media_url':settings.MEDIA_URL,'q':q,'artikels':artikels}
     return render(request, 'frontend/home.html', context)
 
 
@@ -46,15 +66,96 @@ def resepByKategori(request, key):
     context = {'api_resep':api_resep,'media_url':settings.MEDIA_URL,'nama_kategori':nama_kategori}
     return render(request, 'frontend/resep_by_kategori.html', context)
 
-def detailResep(request, key):
+def resepAll(request):
     # Resep
-    url_resep_by_kategori = f'{url_api}/recipe/{key}'
-    reseps = requests.get(url_resep_by_kategori)
+    url_resep = f'{url_api}/recipes'
+    reseps = requests.get(url_resep)
     data_resep = reseps.json()
     api_resep = data_resep['results']
 
-    context = {'api_resep':api_resep,'media_url':settings.MEDIA_URL,'nama_kategori':nama_kategori}
+    # Kategori Resep
+    url_kategori_resep = f'{url_api}/category/recipes/'
+    kategori_reseps = requests.get(url_kategori_resep)
+    data_kategori_resep = kategori_reseps.json()
+    api_kategori_resep = data_kategori_resep['results']
+
+
+    context = {'api_resep':api_resep,'media_url':settings.MEDIA_URL,'api_kategori_resep':api_kategori_resep}
+    return render(request, 'frontend/resep-full.html', context)
+
+def resepFavorit(request):
+    # Resep
+    resep_favorit = Bookmarks.objects.filter(user=request.user)
+
+
+    context = {'resep_favorit':resep_favorit}
+    return render(request, 'frontend/favorit.html', context)
+
+def detailResep(request, key):
+    # Resep
+    
+
+    if request.user.is_authenticated:
+        bookmark = Bookmarks.objects.filter(key_resep=key,user=request.user).exists()
+    # Resep
+    if Resep.objects.filter(key=key).exists() == False:
+        from_api = 1
+        url_detail_resep = f'{url_api}/recipe/{key}'
+        reseps = requests.get(url_detail_resep)
+        data_resep = reseps.json()
+        resep = data_resep['results']
+        ingredient = resep['ingredient']
+        step = resep['step']
+        url_youtube = ""
+    else:
+        from_api = 0
+        resep = Resep.objects.get(key=key)
+        ingredient = resep.ingredient.split(", ")
+        step = resep.step.split(", ")
+
+    if request.method == 'POST':
+        if request.POST.get('key_bookmarks'):
+            url_resep_detail = f'{url_api}/recipe/{key}'
+            resepnya = requests.get(url_resep_detail)
+            datanya = resepnya.json()
+            result = datanya['results']
+            Bookmarks.objects.create(
+                key_resep = key,
+                title_resep=result['title'],
+                times_resep=result['times'],
+                difficulty_resep=result['difficulty'],
+                thumb_resep=result['thumb'],
+                serving_resep=result['servings'],
+                user=request.user,
+            )
+            messages.success(request, "Yey, Kamu Berhasil Menambah Bookmark! Cek di bagian Profil ya")
+        elif request.POST.get('key_unbookmarks'):
+            Bookmarks.objects.get(key_resep=key,user=request.user).delete()
+            messages.success(request, "Bookmark Berhasil Dihapus.")
+        return redirect(request.META.get('HTTP_REFERER'))
+    if request.user.is_authenticated:
+        context = {'resep':resep,'media_url':settings.MEDIA_URL,'ingredient':ingredient,'step':step,'from_api':from_api,'key':key,'bookmark':bookmark}
+    else:
+        context = {'resep':resep,'media_url':settings.MEDIA_URL,'ingredient':ingredient,'step':step,'from_api':from_api,'key':key}
     return render(request, 'frontend/detail_resep.html', context)
+
+def detailKategori(request, key):
+    # Resep
+    url_detail_kategori = f'{url_api}/category/recipes/{key}'
+    kategori_resep = requests.get(url_detail_kategori)
+    data_kategori = kategori_resep.json()
+    api_kategori = data_kategori['results']
+    kategori = KategoriResep.objects.get(key=key)
+
+    # Kategori Resep
+    url_kategori_resep = f'{url_api}/category/recipes/'
+    kategori_reseps = requests.get(url_kategori_resep)
+    data_kategori_resep = kategori_reseps.json()
+    api_kategori_resep = data_kategori_resep['results']
+
+
+    context = {'api_kategori':api_kategori,'media_url':settings.MEDIA_URL,'key':key,'kategori':kategori,'api_kategori_resep':api_kategori_resep}
+    return render(request, 'frontend/detail_kategori.html', context)
 
 @login_required(login_url='login')
 def dashboard(request):
@@ -77,9 +178,41 @@ def loginPage(request):
             login(request, user)
             return redirect('dashboard')
         else:
-            messages.info(request, 'Username OR password is incorrect')
+            messages.error(request, 'Username / Password Salah, Silakan Coba Lagi',extra_tags='danger')
             return redirect('login')
-    return render(request, 'base/login_register.html')
+    return render(request, 'frontend/login.html')
+
+def registerPage(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser == 1:
+            return redirect('dashboard')
+        else:
+            messages.info(request, 'Anda Telah Login.')
+            return redirect('home')
+    
+    form = forms.UserForm()
+
+    if request.method == 'POST':
+        form = forms.UserForm(request.POST)
+        if request.POST.get('password1') == request.POST.get('password2'):
+            if form.is_valid():
+                user_new = form.save()
+                messages.success(request, "Terimakasih Telah Registrasi, Sekarang Anda Telah Login.")
+                new_user = authenticate(username=form.cleaned_data['username'],
+                                        password=form.cleaned_data['password1'],
+                                        )
+                login(request, new_user)
+                return redirect('home')
+            else:
+                messages.error(request, "Data Tidak Valid. Pastikan Data Benar. Password Minimal 8 Karakter Dengan Kombinasi Huruf, Angka & Simbol.", extra_tags="danger" )
+                return redirect('register')
+        else:
+            messages.error(request, "Password & Konfirmasi Password Harus Sama.", extra_tags="danger" )
+            return redirect('register')
+       
+
+    context = {'form':form}
+    return render(request, 'frontend/register.html', context)
 
 def logout_view(request):
     logout(request)
@@ -156,7 +289,7 @@ def sliderEdit(request,pk):
 @login_required(login_url='login')
 def artikelIndex(request):
     artikels = Artikel.objects.all()
-    context = {'artikels':artikels}
+    context = {'artikels':artikels,'media_url':settings.MEDIA_URL}
     return render(request,'operator/artikel/index.html', context)
 
 @login_required(login_url='login')
@@ -176,13 +309,28 @@ def artikelTambah(request):
     form = forms.ArtikelForm()
     if request.method == 'POST':
         kat = KategoriArtikel.objects.get(id=request.POST.get('kategori'))
-        Artikel.objects.create(
-            judul=request.POST.get('judul'),
-            isi=request.POST.get('isi'),
-            kategori_artikel_id=request.POST.get('kategori'),
-            status=request.POST.get('status'),
-            author=request.user,
-        )
+        if request.FILES.get('gambar'):
+            upload = request.FILES['gambar']
+            gambar = upload.name
+            Artikel.objects.create(
+                judul=request.POST.get('judul'),
+                isi=request.POST.get('isi'),
+                kategori_artikel_id=request.POST.get('kategori'),
+                status=request.POST.get('status'),
+                author=request.user,
+                thumbnail=gambar,
+            )
+            fss = FileSystemStorage()
+            file = fss.save(upload.name, upload)
+            file_url = fss.url(file)
+        else:
+            Artikel.objects.create(
+                judul=request.POST.get('judul'),
+                isi=request.POST.get('isi'),
+                kategori_artikel_id=request.POST.get('kategori'),
+                status=request.POST.get('status'),
+                author=request.user,
+            )
         messages.success(request, "Sukses Menambah Artikel." )
         return redirect('artikel')
     context = {'kategoris':kategoris}
@@ -200,6 +348,16 @@ def artikelEdit(request,pk):
         artikel.status  = request.POST.get('status')
         artikel.kategori_artikel_id  = request.POST.get('kategori')
         artikel.save()
+        if request.FILES.get('gambar'):
+            if artikel.thumbnail:
+                if os.path.isfile(artikel.thumbnail.path):
+                    os.remove(artikel.thumbnail.path)
+            upload = request.FILES['gambar']
+            artikel.thumbnail = upload.name
+            artikel.save()
+            fss = FileSystemStorage()
+            file = fss.save(upload.name, upload)
+            file_url = fss.url(file)
         messages.success(request, "Sukses Mengubah Artikel." )
         return redirect('artikel')
 
@@ -212,6 +370,14 @@ def artikelDetail(request,pk):
     kategoris = KategoriArtikel.objects.all()
     context = {'artikel':artikel,'kategoris':kategoris}
     return render(request, 'operator/artikel/detail.html', context)
+
+def detailArtikel(request, slug):
+    # Resep
+    artikel = Artikel.objects.get(slug=slug)
+
+
+    context = {'artikel':artikel,'media_url':settings.MEDIA_URL}
+    return render(request, 'frontend/detail_artikel.html', context)
 
 
 # Kategori Artikel Views
