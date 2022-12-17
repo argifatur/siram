@@ -10,7 +10,7 @@
 <div class="page-heading">
     <h3>
         {% block title %}
-        Manajemen Produk
+        Manajemen Artikel
         {% endblock title %}
     </h3>
 </div>
@@ -20,63 +20,51 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
-                    <h4 class="card-title mb-0">Tambah Produk</h4>
+                    <h4 class="card-title mb-0">Detail Artikel "{{artikel.judul}}"</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="pilihanganda" role="tabpanel"
                                 aria-labelledby="pilihanganda-tab">
-                                <form class="form" method="POST" action="" autocomplete="off" enctype="multipart/form-data">
-                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="nama_produk" class="mb-2">Nama Produk</label>
-                                                <input type="text" class="form-control" required name="nama_produk">
+                                                <label for="judul" class="mb-2">Judul</label>
+                                                <input type="text" class="form-control" required name="judul" disabled value="{{artikel.judul}}">
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label for="kategori" class="mb-2">Kategori</label>
-                                                <select name="kategori" id="" required class="form-control">
+                                                <select name="kategori" id="" required class="form-control" disabled>
                                                     <option value="">---Pilih Kategori---</option>
                                                     {% for kategori in kategoris %}
-                                                    <option value="{{kategori.id}}">{{kategori.nama_kategori}}</option>
+                                                    <option value="{{kategori.id}}" {% if artikel.kategori_artikel_id == kategori.id %} selected {% endif %}>{{kategori.nama_kategori}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
 
                                             <div class="form-group mb-4">
-                                                <label for="isi" class="mb-2">Deskripsi</label>
-                                                <textarea name="deskripsi" id="editor1" required rows="10"
-                                                    cols="100"></textarea>
+                                                <label for="isi" class="mb-2">Isi</label>
+                                                <textarea name="isi" id="" class="form-control" required rows="10"
+                                                    cols="100" disabled>{{artikel.isi|striptags}}</textarea>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="harga" class="mb-2">Harga Produk</label>
-                                                <input type="number" class="form-control" required name="harga">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="gambar" class="mb-2">Gambar</label>
-                                                <input type="file" class="form-control" accept="image/*" onchange="loadFile(event)" name="gambar">
-                                                <img id="output"/ width="20%">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="url" class="mb-2">Url Produk</label>
-                                                <input type="text" class="form-control" required name="url">
+                                                <label for="status" class="mb-2">Status</label>
+                                                <select name="status" id="" required class="form-control" disabled>
+                                                    <option value="Active" {% if artikel.status == 'Active' %} selected {% endif %}>Active</option>
+                                                    <option value="Inactive" {% if artikel.status == 'Inactive' %} selected {% endif %}>Inactive</option>
+                                                    <option value="Draft" {% if artikel.status == 'Draft' %} selected {% endif %}>Draft</option>
+                                                </select>
                                             </div>
 
 
                                             <div class="col-12 d-flex justify-content-end mt-4">
-                                                <a href="{% url 'produk' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>
-                                                <button type="submit" class="btn btn-primary me-1 mb-1"><i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block"><i class="fas fa-plus"></i>&nbsp;Tambah</span></button>
+                                                <a href="{% url 'artikel' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
 
@@ -95,16 +83,6 @@
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <script src="{% static 'assets/js/extensions/datatables.js' %}"></script>
 <script src="{% static 'assets/js/extensions/datatables-5.js' %}"></script>
-<script type="text/javascript">
-var loadFile = function(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function() {
-      URL.revokeObjectURL(output.src) // free memory
-    }
-  };
-</script>
-
 <script>
     CKEDITOR.replace('editor1');
 </script>

@@ -36,6 +36,11 @@ class KategoriResep(models.Model):
 class KategoriArtikel(models.Model):
     nama_kategori = models.CharField(max_length=200)
     created       = models.DateTimeField(auto_now_add=True,null=True)
+    slug                = models.SlugField(blank=True, editable=False)
+
+    def save(self, **kwargs):
+        self.slug = slugify(self.nama_kategori)
+        super().save()
 
     def __str__(self):
         return self.nama_kategori
@@ -72,6 +77,7 @@ class KategoriProduk(models.Model):
 
 class Produk(models.Model):
     nama_produk         = models.CharField(max_length=255)
+    url                 = models.CharField(max_length=255,null=True)
     deskripsi           = models.TextField()
     kategori_produk     = models.ForeignKey(KategoriProduk, on_delete=models.SET_NULL, null=True)
     author              = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -122,6 +128,7 @@ class Resep(models.Model):
     author_user         = models.CharField(max_length=255,null=True)
     author_datePublished = models.CharField(max_length=255,null=True)
     is_from_api         = models.BooleanField(null=True,default=0)
+    status              = models.CharField(null=True,max_length=20)
 
 
     created       = models.DateTimeField(auto_now_add=True,null=True)

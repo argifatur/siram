@@ -4,7 +4,11 @@
 {% block content %} 
   
    <!-- ##### Breadcumb Area Start ##### -->
+   {% if from_api == 1 %}
     <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{resep.thumb}});">
+        {% else %}
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{media_url}}{{resep.thumb}});">
+        {% endif %}
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -26,7 +30,11 @@
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="receipe-headline my-5">
+                            {% if from_api == 1 %}
                             <img src="{{resep.thumb}}">
+                            {% else %}
+                            <img src="{{media_url}}{{resep.thumb}}">
+                            {% endif %}
                             <span>{{resep.author.datePublished}}</span>
                             <h2>{{resep.title}}</h2>
                             <div class="receipe-duration">
@@ -59,18 +67,32 @@
                     </div>
                     </form>
                     {% endif %}
+                    {% else %}
+                    <div class="col-12 col-md-4">
+                        <div class="receipe-ratings text-right my-5">
+                            <a class="btn delicious-btn text-white" href="{% url 'login' %}" type="submit"><i class="fa fa-heart-o"></i> &nbsp;Tambah Favorit</a>
+                        </div>
                     {% endif %}
                 </div>
 
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <!-- Single Preparation Step -->
+                        {% if from_api == 1 %}
                         {% for cara in resep.step %}
                         <div class="single-preparation-step d-flex">
                             <h4>{{forloop.counter}}.</h4>
                             <p>{{cara}} </p>
                         </div>
                         {% endfor %}
+                  {% else %}
+                  {% for langkah in step %}
+                  <div class="single-preparation-step d-flex">
+                            <h4>{{forloop.counter}}.</h4>
+                            <p>{{langkah}} </p>
+                        </div>
+                  {% endfor %}
+                  {% endif %}
                     </div>
 
                     <!-- Ingredients -->

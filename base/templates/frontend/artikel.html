@@ -1,0 +1,91 @@
+{% extends 'main.html' %} 
+
+{% load static %}    
+{% block content %} 
+
+ <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/frontend/img/bg-img/breadcumb2.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Artikel</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Blog Area Start ##### -->
+    <div class="blog-area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="blog-posts-area">
+
+                        <!-- Single Blog Area -->
+                        {% for artikel in artikels %}
+                        <div class="single-blog-area mb-80">
+                            <!-- Thumbnail -->
+                            <div class="blog-thumbnail">
+                                <img src="{{media_url}}{{artikel.thumbnail}}" alt="">
+                                <!-- Post Date -->
+                                <div class="post-date">
+                                    <a href="#"><span>{{artikel.published|date:"d"}}</span>{{artikel.published|date:"b"}} <br> {{artikel.published|date:"Y"}}</a>
+                                </div>
+                            </div>
+                            <!-- Content -->
+                            <div class="blog-content">
+                                <a href="#" class="post-title">{{artikel.judul}}</a>
+                                <div class="meta-data">by <a>{{artikel.author}}</a></div>
+                                <div class="meta-data"><a>{{artikel.kategori_artikel}}</a></div>
+                                <p>{{artikel.isi|safe|truncatewords:"15"}}. </p>
+                                <a href="{% url 'detail-artikel' artikel.slug %}" class="btn delicious-btn mt-30">Read More</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item active"><a class="page-link" href="#">01.</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02.</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03.</a></li>
+                        </ul>
+                    </nav> -->
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="blog-sidebar-area">
+
+                        <!-- Widget -->
+                        <div class="single-widget mb-80">
+                            <h6>Kategori</h6>
+                            <ul class="list">
+                                {% for kategori in kategori_artikels %}
+                                <li><a href="{% url 'artikel-by-kategori' kategori.slug %}">{{kategori.nama_kategori}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Widget -->
+                        <div class="single-widget mb-80">
+                            <div class="quote-area text-center">
+                                <span>"</span>
+                                <h4>Kurus atau gendut adalah pilihan, tapi makan enak adalah kebutuhan</h4>
+                                <p>Unknown</p>
+                                <div class="date-comments d-flex justify-content-between">
+                                    <div class="date">Samarinda, Desember 2022</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Blog Area End ##### -->
+{% endblock content %}

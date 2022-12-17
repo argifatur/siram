@@ -1,0 +1,80 @@
+{% extends 'operator/adminbase.html' %}
+{% load static %}
+
+{% block styles %} 
+<ink rel="stylesheet" href="{% static 'assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/pages/datatables.css' %}">
+{% endblock %}
+{% block title %} Manajemen Resep User SIRAM {% endblock title %}
+{% block content %}
+<div class="page-heading">
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Manajemen Resep User SIRAM</h3>
+        </div>
+    </div>
+</div>
+<!-- {% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong> {{message}} </strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %} -->
+<section class="section">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Judul</th>
+                        <th>Kategori</th>
+                        <th>Key</th>
+                        <th width="20">Thumbnail</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resep in resep_dari_user %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{resep.title}}</td>
+                        <td>{{resep.kategori_resep}}</td>
+                        <td>{{resep.key}}</td>
+                        <td><img src="{{media_url}}{{resep.thumb}}" width="60%"></td>
+                        <td>{% if resep.status == 'Verified' %} <span class="badge bg-success">Verified</span> {% elif resep.status == 'Pending' %} <span class="badge bg-warning">Pending</span> {% else %}  <span class="badge bg-danger">Gagal, terdapat data yang tidak sesuai prosedur</span> {% endif %}</td>
+                        <td>
+
+                            {% if resep.status != 'Pending' %}
+                            <a type="button" href="{% url 'url-pending' resep.id %}" class="btn btn-warning btn-sm">Ubah Pending</a>
+                            {% endif %}
+                            {% if resep.status != 'Verified' %}
+                            <a type="button" href="{% url 'url-verified' resep.id %}" class="btn btn-primary btn-sm">Ubah Verified</a>
+                            {% endif %}
+                            {% if resep.status != 'Gagal' %}
+                            <a type="button" href="{% url 'url-gagal' resep.id %}" class="btn btn-danger btn-sm">Ubah Gagal</a>
+                            {% endif %}
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus-resep-{{resep.id}}"><i class="fas fa-trash"></i>&nbsp;Hapus</button>
+                            {% include "operator/resep/hapus.html" %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+</div>
+{% block scripts %}
+
+<script src="{% static 'assets/extensions/jquery/jquery.min.js' %}"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+<script src="{% static 'assets/js/pages/datatables.js' %}"></script>
+
+{% endblock scripts %}
+{% endblock %}

@@ -9,6 +9,7 @@ urlpatterns = [
     path('register/', views.registerPage, name="register"),
     path('logout', views.logout_view, name='logout'),
     path('operator/dashboard', views.dashboard, name="dashboard"),
+    path('operator/sinkron', views.sinkron, name="sinkron"),
 
     # ADMIN ROUTE 
 
@@ -17,6 +18,18 @@ urlpatterns = [
     path('operator/slider/tambah', views.sliderTambah, name="tambah-slider"),
     path('operator/slider/hapus/<int:pk>', views.sliderHapus, name="hapus-slider"),
     path('operator/slider/edit/<int:pk>', views.sliderEdit, name="edit-slider"),
+
+    path('operator/resep-dari-user/', views.resepDariUser, name="resep-dari-user"),
+    path('operator/resep-verified/<int:pk>', views.resepVerified, name="url-verified"),
+    path('operator/resep-pending/<int:pk>', views.resepPending, name="url-pending"),
+    path('operator/resep-gagal/<int:pk>', views.resepGagal, name="url-gagal"),
+
+    # User Add Resep Route
+    path('siram/resep', views.resepIndex, name="resep"),
+    path('siram/resep/tambah', views.resepTambah, name="tambah-resep"),
+    path('siram/resep/hapus/<int:pk>', views.resepHapus, name="hapus-resep"),
+    path('siram/resep/edit/<int:pk>', views.resepEdit, name="edit-resep"),
+    path('siram/resep/detail/<int:pk>', views.resepDetail, name="detail-resep"),
 
     # Artikel Route
     path('operator/artikel', views.artikelIndex, name="artikel"),
@@ -53,6 +66,9 @@ urlpatterns = [
 
     # USER ROUTE
     path('resep-masakan/', views.resepAll, name="resep-all"),
+    path('resep-pilihan/', views.resepByUser, name="resep-by-user"),
+    path('artikel/', views.artikelPage, name="artikel-page"),
+    path('artikel/<str:slug>', views.artikelByKategori, name="artikel-by-kategori"),
     path('resep-masakan/<str:key>', views.resepByKategori, name="resep-by-kategori"),
     path('resep-masakan/detail-resep/<str:key>', views.detailResep, name="detail-resep"),
     path('resep-favorit/', views.resepFavorit, name="resep-favorit"),

@@ -64,6 +64,11 @@
                                                 <p>Gambar Sebelumnya : <img src="{{media_url}}{{produk.gambar}}" width="20%"></p>
                                             </div>
 
+                                            <div class="form-group">
+                                                <label for="url" class="mb-2">Url Produk</label>
+                                                <input type="text" class="form-control" required name="url" value="{{produk.url}}">
+                                            </div>
+
 
                                             <div class="col-12 d-flex justify-content-end mt-4">
                                                 <a href="{% url 'produk' %}" class="btn btn-secondary me-1 mb-1"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i>&ensp;Kembali</a>
