@@ -1,3 +1,4 @@
+
 {% load static %}
 <!-- ##### Header Area Start ##### -->
     <header class="header-area">
@@ -10,8 +11,9 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                         <!-- Logo -->
-                        <a class="nav-brand" href="index.html">
-                            SIRAM 
+                        <a class="nav-brand" href="{% url 'home' %}">
+                            SIRAM
+
                             <!-- <img src="{% static 'frontend/img/core-img/logo.png' %}" alt=""> -->
                         </a>
 
@@ -35,11 +37,12 @@
                                     <li class="{% if request.path == url %}active{% endif %}"><a href="{% url 'home' %}">Home</a></li>
                                   
                                     <li class="{% if '/resep-masakan' in request.path %} active {% endif %}"><a href="{% url 'resep-all' %}">Semua Resep</a></li>
-                                    <li class="{% if '/resep-pilihan' in request.path %} active {% endif %}"><a href="{% url 'resep-by-user' %}">Resep Pilihan SIRAM</a></li>
-                                    <li class="{% if '/resep-favorit' in request.path %} active {% endif %}"><a href="{% url 'resep-favorit' %}">Resep Favorit</a></li>
+                                    <li class="{% if '/resep-pilihan' in request.path %} active {% endif %}"><a href="{% url 'resep-by-user' %}">Resep By SIRAM</a></li>
+                                    <li class="{% if '/resep-favorit' in request.path %} active {% endif %}"><a href="{% url 'resep-favorit' %}">Favorit</a></li>
                                     <li class="{% if '/artikel' in request.path %} active {% endif %}"><a href="{% url 'artikel-page' %}">Artikel</a></li>
+                                    <li class="{% if '/tentang' in request.path %} active {% endif %}"><a href="{% url 'tentang' %}">Tentang</a></li>
                                     {% if request.user.is_authenticated %}
-                                    <li><a href="{% url 'login' %}">Profil</a></li>
+                                    <li><a href="{% url 'login' %}">Dashboard</a></li>
                                     {% else %}
                                     <li><a href="{% url 'login' %}">Login</a></li>
                                     {% endif %}

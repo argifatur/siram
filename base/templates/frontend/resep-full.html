@@ -9,7 +9,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-text text-center">
-                        <h2>Resep</h2>
+                        <h2>Resep Terbaru</h2>
                     </div>
                 </div>
             </div>
@@ -29,12 +29,20 @@
                 </div>
             </div>
             <div class="row">
-            {% for resep in api_resep %}
+            {% for resep in reseps %}
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
                         <a href="{% url 'detail-resep' resep.key %}">
-                        <img src="{{resep.thumb}}" alt="">
+                        {% if resep.is_from_api %}
+                        {% if resep.thumb %}
+                        <img src="{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'images/default-resep.png' %}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
+                        {% else %}
+                        <img src="{{media_url}}{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
                         <div class="receipe-content">
                             <a href="{% url 'detail-resep' resep.key %}">
                                 <h5>{{resep.title}}</h5>
@@ -67,7 +75,7 @@
         <!-- Instagram Feeds -->
         <div class="insta-feeds d-flex flex-wrap">
             <!-- Single Insta Feeds -->
-            {% for kategori in api_kategori_resep %}
+            {% for kategori in kategori_reseps %}
             <div class="single-insta-feeds">
                 <img src="/static/images/category/{{kategori.key}}.jpg" alt="" style="height: 150px; object-fit: cover;">
                 <!-- Icon -->

@@ -62,14 +62,24 @@
                         <span>Slider</span>
                     </a>
                 </li>
+
                 
-                <li class="sidebar-item {% if '/resep-dari-user' in request.path  %} active {% endif %}">
-                    <a href="{% url 'resep-dari-user' %}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-person"></i>
-                        <span>Resep Dari User</span>
+                <li data-link-name="edituser" class="sidebar-item has-sub {% if '/resep' in request.path or '/resep-dari-user' in request.path  %} active {% endif %} has-sub">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-book-half"></i>
+                        <span>Resep</span>
                     </a>
-                </li>
-                
+                    <ul class="submenu" style="display:
+                        {% if '/resep-dari-user' in request.path or '/resep' in request.path %} block {% endif %};">
+                        <li class="submenu-item {% if '/resep/' in request.path  %} active {% endif %}">
+                            <a href="{% url 'resep-index-full' %}">Full Resep</a>
+                        </li>
+                        <li class="submenu-item {% if '/resep-dari-user' in request.path  %} active {% endif %}">
+                            <a href="{% url 'resep-dari-user' %}">Resep Dari User</a>
+                        </li>
+                    </ul>
+                </li> 
+
                 <li data-link-name="edituser" class="sidebar-item has-sub {% if 'kategori-artikel' in request.path or 'artikel' in request.path  %} active {% endif %} has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-book-half"></i>
@@ -102,17 +112,17 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
+                <!-- <li class="sidebar-item {% if '/setting' in request.path %} active {% endif %}">
                     <a href="{% url 'setting' %}" class='sidebar-link'>
                         <i class="bi bi-gear-fill"></i>
                         <span>Setting Website</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar-item">
                     <a href="{% url 'sinkron' %}" class='sidebar-link'>
-                        <i class="bi bi-gear-fill"></i>
-                        <span>Sinkron Resep ke DB</span>
+                        <i class="bi bi-cloud-arrow-down-fill"></i>
+                        <span>Sinkron Resep ke DB (API SEDANG ERROR)</span>
                     </a>
                 </li>
                

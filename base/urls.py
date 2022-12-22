@@ -19,6 +19,7 @@ urlpatterns = [
     path('operator/slider/hapus/<int:pk>', views.sliderHapus, name="hapus-slider"),
     path('operator/slider/edit/<int:pk>', views.sliderEdit, name="edit-slider"),
 
+    path('operator/resep/', views.resepIndexFull, name="resep-index-full"),
     path('operator/resep-dari-user/', views.resepDariUser, name="resep-dari-user"),
     path('operator/resep-verified/<int:pk>', views.resepVerified, name="url-verified"),
     path('operator/resep-pending/<int:pk>', views.resepPending, name="url-pending"),
@@ -36,7 +37,7 @@ urlpatterns = [
     path('operator/artikel/tambah', views.artikelTambah, name="tambah-artikel"),
     path('operator/artikel/hapus/<int:pk>', views.artikelHapus, name="hapus-artikel"),
     path('operator/artikel/edit/<int:pk>', views.artikelEdit, name="edit-artikel"),
-    path('operator/artikel/detail/<int:pk>', views.artikelDetail, name="detail-artikel"),
+    path('operator/artikel/detail/<int:pk>', views.artikelDetail, name="detail-artikel-op"),
 
 
     # Kategori Artikel Route
@@ -65,11 +66,11 @@ urlpatterns = [
 
 
     # USER ROUTE
+    path('tentang/', views.tentang, name="tentang"),
     path('resep-masakan/', views.resepAll, name="resep-all"),
     path('resep-pilihan/', views.resepByUser, name="resep-by-user"),
     path('artikel/', views.artikelPage, name="artikel-page"),
     path('artikel/<str:slug>', views.artikelByKategori, name="artikel-by-kategori"),
-    path('resep-masakan/<str:key>', views.resepByKategori, name="resep-by-kategori"),
     path('resep-masakan/detail-resep/<str:key>', views.detailResep, name="detail-resep"),
     path('resep-favorit/', views.resepFavorit, name="resep-favorit"),
     path('resep-masakan/kategori/<str:key>', views.detailKategori, name="detail-kategori"),

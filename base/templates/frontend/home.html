@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <!-- Top Catagory Area -->
-                {% for kategori in api_kategori_resep %}
+                {% for kategori in kategori_reseps %}
                 <div class="col-12 col-lg-4">
                     <div class="single-top-catagory">
                         <img src="/static/images/category/{{kategori.key}}.jpg" alt="" style="height: 200px; object-fit: cover;">
@@ -49,12 +49,16 @@
                 </div>
             </div>
             <div class="row">
-            {% for resep in api_resep %}
+            {% for resep in reseps %}
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
                         <a href="{% url 'detail-resep' resep.key %}">
-                        <img src="{{resep.thumb}}" alt="">
+                        {% if resep.thumb != null %}
+                        <img src="{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'images/default-resep.png' %}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
                         <div class="receipe-content">
                             <a href="{% url 'detail-resep' resep.key %}">
                                 <h5>{{resep.title}}</h5>
@@ -131,7 +135,7 @@
 <div class="container">
     <div class="row">
                 <div class="col-12">
-                    <div class="section-heading">
+                    <div class="section-heading" style="margin-bottom: -80px;">
                         <h3>Produk by SIRAM</h3>
                     </div>
                 </div>

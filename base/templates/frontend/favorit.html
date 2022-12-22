@@ -32,16 +32,24 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <a href="{% url 'detail-resep' resep.key_resep %}">
-                        <img src="{{resep.thumb_resep}}" alt="">
+                        <a href="{% url 'detail-resep' resep.resep.key %}">
+                        {% if resep.resep.is_from_api %}
+                        {% if resep.resep.thumb %}
+                        <img src="{{resep.resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="{% static 'images/default-resep.png' %}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
+                        {% else %}
+                        <img src="{{media_url}}{{resep.resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
                         <div class="receipe-content">
-                            <a href="{% url 'detail-resep' resep.key_resep %}">
-                                <h5>{{resep.title_resep}}</h5>
+                            <a href="{% url 'detail-resep' resep.resep.key %}">
+                                <h5>{{resep.resep.title}}</h5>
                             </a>
                             <div class="ratings">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i> {{resep.times_resep}}
-                                <i class="fa fa-cutlery" aria-hidden="true"></i> {{resep.serving_resep}}
-                                <i class="fa fa-bar-chart" aria-hidden="true"></i> {{resep.difficulty_resep}}
+                                <i class="fa fa-clock-o" aria-hidden="true"></i> {{resep.resep.times}}
+                                <i class="fa fa-cutlery" aria-hidden="true"></i> {{resep.resep.serving}}
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i> {{resep.resep.difficulty}}
                             </div>
                         </div>
                         </a>
