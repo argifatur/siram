@@ -131,8 +131,9 @@ def dashboard(request):
     jumlah_artikel = Artikel.objects.all().count()
     jumlah_produk = Produk.objects.all().count()
     jumlah_favorit = Bookmarks.objects.filter(user=request.user).count()
+    jumlah_resep_dari_user = Resep.objects.filter(author=request.user).count()
 
-    context = {'jumlah_resep':jumlah_resep,'jumlah_artikel':jumlah_artikel,'jumlah_produk':jumlah_produk,'jumlah_favorit':jumlah_favorit}
+    context = {'jumlah_resep':jumlah_resep,'jumlah_artikel':jumlah_artikel,'jumlah_produk':jumlah_produk,'jumlah_favorit':jumlah_favorit,'jumlah_resep_dari_user':jumlah_resep_dari_user}
     return render(request,'operator/dashboard.html', context)
 
 def loginPage(request):

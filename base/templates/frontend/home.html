@@ -55,7 +55,11 @@
                     <div class="single-best-receipe-area mb-30">
                         <a href="{% url 'detail-resep' resep.key %}">
                         {% if resep.thumb != null %}
+                        {% if resep.is_from_api %}
                         <img src="{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="{{media_url}}{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
                         {% else %}
                         <img src="{% static 'images/default-resep.png' %}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
                         {% endif %}
@@ -182,7 +186,15 @@
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
                         <a href="{% url 'detail-resep' resep.key %}">
-                        <img src="{{resep.thumb}}" alt="">
+                        {% if resep.thumb != null %}
+                        {% if resep.is_from_api %}
+                        <img src="{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="{{media_url}}{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
+                        {% else %}
+                        <img src="{% static 'images/default-resep.png' %}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
                         <div class="receipe-content">
                             <a href="{% url 'detail-resep' resep.key %}">
                                 <h5>{{resep.title}}</h5>
@@ -218,7 +230,15 @@
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
                         <a href="{% url 'detail-resep' resep.key %}">
-                        <img src="{{resep.thumb}}" alt="">
+                        {% if resep.thumb != null %}
+                        {% if resep.is_from_api %}
+                        <img src="{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% else %}
+                        <img src="{{media_url}}{{resep.thumb}}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
+                        {% else %}
+                        <img src="{% static 'images/default-resep.png' %}" alt="" style="height: 200px; width: 400px; object-fit: cover;">
+                        {% endif %}
                         <div class="receipe-content">
                             <a href="{% url 'detail-resep' resep.key %}">
                                 <h5>{{resep.title}}</h5>
